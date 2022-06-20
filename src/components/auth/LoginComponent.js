@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { GoogleLogin } from "react-google-login";
-import useEffect from "react";
-
+import { refeshTokenSetup } from "../../utils/refeshTokenSetup";
 const clientId =
   "565988690909-8ve03ft7hdobt3v74u2n7utergqd31cr.apps.googleusercontent.com";
 
 function Login() {
   const onSuccess = (response) => {
     console.log("[Login Success] currentUser: ", response.profileObj);
+
+    refeshTokenSetup(response);
   };
 
   const onFailure = (response) => {
