@@ -447,6 +447,7 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
                   {strings["about_us"]}
                 </Link>
               </li>
+
               <li>
                 <Link to={process.env.PUBLIC_URL + "/contact"}>
                   {strings["contact_us"]}
@@ -507,7 +508,7 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
 NavMenu.propTypes = {
   menuWhiteClass: PropTypes.string,
   sidebarMenu: PropTypes.bool,
-  strings: PropTypes.object
+  strings: PropTypes.object,
 };
 
 export default multilanguage(NavMenu);

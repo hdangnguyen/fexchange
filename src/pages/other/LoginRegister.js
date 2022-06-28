@@ -1,19 +1,35 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import MetaTags from "react-meta-tags";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import Login from "../../components/auth/LoginComponent";
-import Logout from "../../components/auth/LogoutComponents";
-import { useEffect } from "react";
-import { gapi } from "gapi-script";
+
+import { GoogleButton } from "react-google-button";
+import { UserAuth } from "../../context/AuthContext";
 
 const LoginRegister = ({ location }) => {
   const { pathname } = location;
+
+  const { googleSignIn, user } = UserAuth();
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const history = useHistory();
+  const navigateTo = () => history.push("home-fashion");
+  useEffect(() => {
+    if (user != null) {
+      navigateTo();
+    }
+  }, [user]);
 
   return (
     <Fragment>
@@ -51,39 +67,17 @@ const LoginRegister = ({ location }) => {
                     </Nav>
                     <Tab.Content>
                       <Tab.Pane eventKey="login">
-                        {/* <div className="login-form-container">
-                          <div className="login-register-form">
-                            <form>
-                              <input
-                                type="text"
-                                name="user-name"
-                                placeholder="Username"
-                              />
-                              <input
-                                type="password"
-                                name="user-password"
-                                placeholder="Password"
-                              />
-                              <div className="button-box">
-                                <div className="login-toggle-btn">
-                                  <input type="checkbox" />
-                                  <label className="ml-10">Remember me</label>
-                                  <Link to={process.env.PUBLIC_URL + "/"}>
-                                    Forgot Password?
-                                  </Link>
-                                </div>
-                                <button type="submit">
-                                  <span>Login with Google</span>
-                                </button>
-                              </div>
-                            </form>
+                        <div className="login-form-container">
+                          <div className="login-register-form text-center">
+                            <h4>Login with google</h4>
+                            <GoogleButton
+                              onClick={handleGoogleSignIn}
+                              style={{ margin: "auto" }}
+                            />
                           </div>
-                        </div> */}
-
-                        <Login></Login>
-                        <Logout></Logout>
+                        </div>
                       </Tab.Pane>
-                      <Tab.Pane eventKey="register">
+                      {/* <Tab.Pane eventKey="register">
                         <div className="login-form-container">
                           <div className="login-register-form">
                             <form>
@@ -110,7 +104,7 @@ const LoginRegister = ({ location }) => {
                             </form>
                           </div>
                         </div>
-                      </Tab.Pane>
+                      </Tab.Pane> */}
                     </Tab.Content>
                   </Tab.Container>
                 </div>
