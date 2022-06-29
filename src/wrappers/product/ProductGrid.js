@@ -6,9 +6,39 @@ import ProductGridSingle from "../../components/product/ProductGridSingle";
 import { addToCart } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 import { addToCompare } from "../../redux/actions/compareActions";
+import axios from "axios";
+import { useState,useEffect } from "react";
+function ProductPostList() {
+  //we set the initial state to an empty array: useState([])
+  //posts: 1st value, our current state
+  //setPosts: 2nd value, is the func that is used to update your state
+  const [posts, setPosts] = useState([]);
 
+
+  // useEffect(() => {
+  //     //Runs on every render
+  //   });
+  useEffect(() => {
+      //Runs only the first render
+      axios.get(`https://fbuyexchange.azurewebsites.net/api/productposts/1/10?all=true`)
+          .then(res => {
+              const productposts = res.data;
+              setPosts(res.data);
+              console.log(productposts)
+
+          })
+          .catch(error => console.log(error));
+
+  }, [])
+
+  return (   
+      {posts}
+      
+  )
+
+}
 const ProductGrid = ({
-  products,
+  products,//product nay lay tu link swagger
   currency,
   addToCart,
   addToWishlist,
@@ -26,7 +56,7 @@ const ProductGrid = ({
           <ProductGridSingle
             sliderClassName={sliderClassName}
             spaceBottomClass={spaceBottomClass}
-            product={product}
+            product={product}//product này lấy từ từng link id
             currency={currency}
             addToCart={addToCart}
             addToWishlist={addToWishlist}
@@ -108,4 +138,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductGrid);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductGrid,ProductPostList);

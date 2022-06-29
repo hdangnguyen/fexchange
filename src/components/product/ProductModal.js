@@ -5,7 +5,7 @@ import { getProductCartQuantity } from "../../helpers/product";
 import { Modal } from "react-bootstrap";
 import Rating from "./sub-components/ProductRating";
 import { connect } from "react-redux";
-
+//Phần sẽ hiện ra khi click vào bài đăng
 function ProductModal(props) {
   const { product } = props;
   const { currency } = props;

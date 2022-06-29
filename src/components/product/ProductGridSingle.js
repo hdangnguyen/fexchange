@@ -5,10 +5,10 @@ import { useToasts } from "react-toast-notifications";
 import { getDiscountPrice } from "../../helpers/product";
 import Rating from "./sub-components/ProductRating";
 import ProductModal from "./ProductModal";
-
+//DÙNG ĐỂ HIỆN TỪNG SẢN PHẨM TRÊN TRANG HOME
 const ProductGridSingle = ({
-  product,
-  currency,
+  product,//
+  currency,//giá tiền 
   addToCart,
   addToWishlist,
   addToCompare,
@@ -18,17 +18,27 @@ const ProductGridSingle = ({
   sliderClassName,
   spaceBottomClass
 }) => {
+  //click vào con mắt hiện ra modal thấy thêm các data:
+  //1.tất cả hình ảnh sản PHẨM
+  //2.description 
   const [modalShow, setModalShow] = useState(false);
+  //bấm vào add to cart toast(thông báo nhỏ) xuất hiện bên trái ở dưới màn hình 
   const { addToast } = useToasts();
-
+  //giá giảm: difference
   const discountedPrice = getDiscountPrice(product.price, product.discount);
+  //giá tiền sản phẩm trước khi giảm, làm tròn 2 chữ số thập phân
   const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
+  //giá tiền sản phẩm sau khi giảm, làm tròn 2 chữ số thập phân
   const finalDiscountedPrice = +(
     discountedPrice * currency.currencyRate
   ).toFixed(2);
 
+//VIẾT DÒNG FOR
+
+
   return (
     <Fragment>
+      
       <div
         className={`col-xl-3 col-md-6 col-lg-4 col-sm-6 ${
           sliderClassName ? sliderClassName : ""
@@ -38,6 +48,8 @@ const ProductGridSingle = ({
           className={`product-wrap ${spaceBottomClass ? spaceBottomClass : ""}`}
         >
           <div className="product-img">
+          {/* LINK API */}
+          {/* hình ảnh  */}
             <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
               <img
                 className="default-img"
@@ -54,6 +66,7 @@ const ProductGridSingle = ({
                 ""
               )}
             </Link>
+            {/* discount in4 nếu có */}
             {product.discount || product.new ? (
               <div className="product-img-badges">
                 {product.discount ? (
@@ -66,7 +79,9 @@ const ProductGridSingle = ({
             ) : (
               ""
             )}
-
+          {/* thêm vào wishlist
+          tình trạng sản phẩm: BUY NOW/ OUT OF Stock
+          xem chi tiết sản phẩm bằng icon con mắt */}
             <div className="product-action">
               <div className="pro-same-action pro-wishlist">
                 <button
@@ -130,7 +145,7 @@ const ProductGridSingle = ({
           </div>
           <div className="product-content text-center">
             <h3>
-              <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
+              <Link to={process.env.PUBLIC_URL + "/productposts/" + product.id}>
                 {product.name}
               </Link>
             </h3>
@@ -141,7 +156,9 @@ const ProductGridSingle = ({
             ) : (
               ""
             )}
+            {/* giá tiền sản phẩm */}
             <div className="product-price">
+              {/* nếu có discount in 2 giá, else in 1 giá */}
               {discountedPrice !== null ? (
                 <Fragment>
                   <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}

@@ -3,7 +3,7 @@ import MetaTags from "react-meta-tags";
 import LayoutOne from "../../layouts/LayoutOne";
 import HeroSliderOne from "../../wrappers/hero-slider/HeroSliderOne";
 import FeatureIcon from "../../wrappers/feature-icon/FeatureIcon";
-import TabProduct from "../../wrappers/product/TabProduct";
+import TabProduct1 from "../../wrappers/product/TabProduct1";
 import BlogFeatured from "../../wrappers/blog-featured/BlogFeatured";
 
 const HomeFashion = () => {

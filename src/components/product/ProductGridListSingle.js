@@ -6,6 +6,7 @@ import { getDiscountPrice } from "../../helpers/product";
 import Rating from "./sub-components/ProductRating";
 import ProductModal from "./ProductModal";
 
+//THÔNG TIN SẢN PHẨM KHI BÁM NÚT VIEW ICON CON MẮT
 const ProductGridListSingle = ({
   product,
   currency,

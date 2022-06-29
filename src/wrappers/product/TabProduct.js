@@ -40,6 +40,7 @@ const TabProduct = ({
               </Nav.Link>
             </Nav.Item>
           </Nav>
+          {/* PRODUCT POST TRÊN HOME PAGE */}
           <Tab.Content>
             <Tab.Pane eventKey="newArrival">
               <div className="row">
