@@ -20,7 +20,7 @@ namespace DataAccess.Repository
                 .Include(x => x.Notifications)
                 .Include(x => x.ProductPosts)
                 .Include(x => x.Orders)
-                .FirstOrDefault(x => x.Gmail == gmail && x.Status == "Active");
+                .FirstOrDefault(x => x.Gmail == gmail);
         }
 
         public void create(Account account)

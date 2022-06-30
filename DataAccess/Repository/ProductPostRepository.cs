@@ -14,6 +14,10 @@ namespace DataAccess.Repository
 {
     public class ProductPostRepository : IProductPostRepository
     {
+        public int getMax()
+        {
+            return EntityDAO.Instance.context.ProductPosts.Max(x=> x.Id);
+        }
         public void create(ProductPost productPost)
         {
             EntityDAO.Instance.context.ProductPosts.Add(productPost);
@@ -26,6 +30,7 @@ namespace DataAccess.Repository
                     .Include(x => x.Account)
                     .Include(x => x.Category)
                     .Include(x => x.ExchangeDesires)
+                    .Include(x=> x.ProductImages)
                     , pageNumber,pageSize);
         }
         public void delete(int id)
@@ -44,6 +49,7 @@ namespace DataAccess.Repository
                     .Include(x => x.Account)
                     .Include(x => x.Category)
                     .Include(x => x.ExchangeDesires)
+                .Include(x => x.ProductImages)
                 ,
                 pageNumber, pageSize);
                 
@@ -54,6 +60,7 @@ namespace DataAccess.Repository
                     .Include(x => x.Account)
                     .Include(x => x.Category.Category1)
                     .Include(x => x.ExchangeDesires.Count)
+                    .Include(x => x.ProductImages)
                     .Where(x=> x.CategoryId == categoryID)
                     ,
                 pageNumber, pageSize);
@@ -64,6 +71,7 @@ namespace DataAccess.Repository
                 .Include(x => x.Account)
                     .Include(x => x.Category)
                     .Include(x => x.ExchangeDesires)
+                    .Include(x => x.ProductImages)
                 .FirstOrDefault(x=>x.Id == id);
         }
 

@@ -1,10 +1,9 @@
 {
   "version": 2,
-  "dgSpecHash": "ihPIpIG3ug0fAMAaN69rTl34etbuhIupiRAXOq2vVqJQRcS6rR5+qgiNaXuaeEr9KPn5pupBZjcFVVXcIO9wlw==",
+  "dgSpecHash": "7hjy7FGf2DgBHzgaF0PIOoErvCWW0g1NJdrL3K3mfvcZ9B4bf0xf5khBUXqkKwvqFMrlJ+yzHdKnKPF3iIIxrg==",
   "success": true,
   "projectFilePath": "C:\\Users\\acern\\source\\repos\\FExchange\\DataAccess\\DataAccess.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\acern\\.nuget\\packages\\entityframework\\5.0.0\\entityframework.5.0.0.nupkg.sha512",
     "C:\\Users\\acern\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\acern\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
     "C:\\Users\\acern\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.0.1\\microsoft.data.sqlclient.sni.runtime.2.0.1.nupkg.sha512",
@@ -100,16 +99,5 @@
     "C:\\Users\\acern\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\acern\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'EntityFramework 5.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
-      "libraryId": "EntityFramework",
-      "targetGraphs": [
-        "net5.0"
-      ]
-    }
-  ]
+  "logs": []
 }

@@ -15,6 +15,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using DataAccess.IRepository;
 using DataAccess.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 namespace FExchange
 {
     public class Startup
@@ -43,6 +47,8 @@ namespace FExchange
             services.AddScoped<IExchangeDesireRepository, ExchangeDesireRepository>();
             services.AddScoped<INotificationRepository, NotificationRepository>();
             services.AddScoped<IProductPostRepository, ProductPostRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IProductImageRepository, ProductImageRepository>();
             services.AddCors(
                 options =>
                 {
@@ -56,6 +62,20 @@ namespace FExchange
                          
                 }
                 );
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+
+
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AppSettings:JwtSecret"]))
+                    };
+                });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

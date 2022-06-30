@@ -37,11 +37,16 @@ namespace FExchange.Mapper
             CreateMap<ProductPost, ProductPostDTO>()
                 .ForMember(des => des.AccountName, act => act.MapFrom(src => src.Account.FullName))
                 .ForMember(des => des.NumberOfExchangeDesires, act => act.MapFrom(src => src.ExchangeDesires.Count))
-                .ForMember(des => des.CategoryName, act => act.MapFrom(src => src.Category.Category1));
+                .ForMember(des => des.CategoryName, act => act.MapFrom(src => src.Category.Category1))
+                .ForMember(des => des.images, act => act.MapFrom(src => src.ProductImages));
             CreateMap<ProductPostDTO, ProductPost>();
             //Payment
             CreateMap<Payment, PaymentDTO>();
-            CreateMap<PaymentDTO, Payment>();   
+            CreateMap<PaymentDTO, Payment>();
+
+            //ProductImage
+            CreateMap<ProductImage, ProductImageDTO>();
+            CreateMap<ProductImageDTO, ProductImage>();
 
         }
     }

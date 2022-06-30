@@ -12,6 +12,7 @@ namespace BusinessObject.Models
             ExchangeDesires = new HashSet<ExchangeDesire>();
             OrderProduct2s = new HashSet<Order>();
             OrderProducts = new HashSet<Order>();
+            ProductImages = new HashSet<ProductImage>();
         }
 
         public int Id { get; set; }
@@ -30,5 +31,6 @@ namespace BusinessObject.Models
         public virtual ICollection<ExchangeDesire> ExchangeDesires { get; set; }
         public virtual ICollection<Order> OrderProduct2s { get; set; }
         public virtual ICollection<Order> OrderProducts { get; set; }
+        public virtual ICollection<ProductImage> ProductImages { get; set; }
     }
 }

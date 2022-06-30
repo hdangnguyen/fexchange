@@ -11,7 +11,6 @@ C:\Users\acern\source\repos\FExchange\FExchange\bin\Release\net5.0\AutoMapper.Ex
 C:\Users\acern\source\repos\FExchange\FExchange\bin\Release\net5.0\Azure.Core.dll
 C:\Users\acern\source\repos\FExchange\FExchange\bin\Release\net5.0\Azure.Storage.Blobs.dll
 C:\Users\acern\source\repos\FExchange\FExchange\bin\Release\net5.0\Azure.Storage.Common.dll
-C:\Users\acern\source\repos\FExchange\FExchange\bin\Release\net5.0\EntityFramework.dll
 C:\Users\acern\source\repos\FExchange\FExchange\bin\Release\net5.0\System.Net.Http.Formatting.dll
 C:\Users\acern\source\repos\FExchange\FExchange\bin\Release\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\acern\source\repos\FExchange\FExchange\bin\Release\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -77,3 +76,9 @@ C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\refint\FExcha
 C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\FExchange.pdb
 C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\FExchange.genruntimeconfig.cache
 C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\ref\FExchange.dll
+C:\Users\acern\source\repos\FExchange\FExchange\bin\Release\net5.0\Google.Apis.dll
+C:\Users\acern\source\repos\FExchange\FExchange\bin\Release\net5.0\Google.Apis.Auth.PlatformServices.dll
+C:\Users\acern\source\repos\FExchange\FExchange\bin\Release\net5.0\Google.Apis.Auth.dll
+C:\Users\acern\source\repos\FExchange\FExchange\bin\Release\net5.0\Google.Apis.Core.dll
+C:\Users\acern\source\repos\FExchange\FExchange\bin\Release\net5.0\Serilog.dll
+C:\Users\acern\source\repos\FExchange\FExchange\bin\Release\net5.0\Serilog.Sinks.Console.dll

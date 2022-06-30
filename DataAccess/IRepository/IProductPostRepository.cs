@@ -16,5 +16,6 @@ namespace DataAccess.IRepository
         void create(ProductPost productPost);
         void update(ProductPost productPost);
         void delete(int id);
+        int getMax();
     }
 }

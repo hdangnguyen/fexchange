@@ -24,6 +24,7 @@ namespace BusinessObject.Models
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
+        public virtual DbSet<ProductImage> ProductImages { get; set; }
         public virtual DbSet<ProductPost> ProductPosts { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
 
@@ -32,7 +33,7 @@ namespace BusinessObject.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=tcp:yume.database.windows.net,1433;Initial Catalog=FExchange;Persist Security Info=False;User ID=yume;Password=PutinD@ide;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                optionsBuilder.UseSqlServer("Server=tcp:yume.database.windows.net,1433;Initial Catalog=FExchange;Persist Security Info=False;User ID=yume;Password=PutinD@ide;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 
@@ -178,6 +179,26 @@ namespace BusinessObject.Models
                     .WithMany(p => p.Payments)
                     .HasForeignKey(d => d.OrderId)
                     .HasConstraintName("FK_Payment_Order");
+            });
+
+            modelBuilder.Entity<ProductImage>(entity =>
+            {
+                entity.ToTable("Product_Image");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Image)
+                    .HasMaxLength(500)
+                    .IsUnicode(false)
+                    .HasColumnName("image");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ProductImages)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Product_Image_Product_Post");
             });
 
             modelBuilder.Entity<ProductPost>(entity =>

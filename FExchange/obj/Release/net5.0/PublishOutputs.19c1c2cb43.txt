@@ -10,7 +10,10 @@ C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\Au
 C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\Azure.Core.dll
 C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\Azure.Storage.Blobs.dll
 C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\Azure.Storage.Common.dll
-C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\EntityFramework.dll
+C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\Google.Apis.dll
+C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\Google.Apis.Auth.PlatformServices.dll
+C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\Google.Apis.Auth.dll
+C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\Google.Apis.Core.dll
 C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\System.Net.Http.Formatting.dll
 C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\Microsoft.Bcl.AsyncInterfaces.dll
@@ -33,6 +36,8 @@ C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\Mi
 C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\Microsoft.OpenApi.dll
 C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\Newtonsoft.Json.dll
 C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\Newtonsoft.Json.Bson.dll
+C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\Serilog.dll
+C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\Serilog.Sinks.Console.dll
 C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\acern\source\repos\FExchange\FExchange\obj\Release\net5.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll

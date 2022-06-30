@@ -35,7 +35,7 @@ namespace FExchange.Controllers
         public CategoryDTO get(int id)
         {
             Category category = categoryRepository.get(id);
-            CategoryDTO dto = mapper.Map<CategoryDTO>(id);
+            CategoryDTO dto = mapper.Map<CategoryDTO>(category);
             return dto;
         }
         [HttpDelete("{id}")]

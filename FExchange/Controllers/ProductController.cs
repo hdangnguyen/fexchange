@@ -23,12 +23,14 @@ namespace FExchange.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+        private IProductImageRepository _productImageRepository;
         private IProductPostRepository _postRepository;
         private IMapper _mapper;
-        public ProductController(IProductPostRepository productPost,IMapper mapper)
+        public ProductController(IProductPostRepository productPost,IMapper mapper,IProductImageRepository productImageRepository)
         {
             _postRepository = productPost;
             _mapper = mapper;
+            _productImageRepository = productImageRepository;
         }
         [HttpGet("{id}")]
         public async Task<ProductPostDTO> Get(int id)
@@ -71,28 +73,51 @@ namespace FExchange.Controllers
         {
             _postRepository.delete(id);
         }
-        [HttpPut]
-        public async Task update([FromQuery] ProductPostDTO dto, IFormFile file)
+        [HttpPut("{id}")]
+        public async Task update(int id,[FromForm] ProductPostDTO dto, [FromForm]IFormFile[] files)
         {
-            ProductPost product = _postRepository.get(dto.Id);
+            ProductPost product = _postRepository.get(id);
             product.Description = dto.Description;
             product.BoughDate = dto.BoughDate;
             product.Name = dto.Name;
             product.Price = dto.Price;
             product.CategoryId = dto.CategoryId;
-            await deleteFile(product.Img);
-            await uploadFile(file);
-            product.Img = "https:\\merry.blob.core.windows.net\\yume\\" + file.FileName;
+            IEnumerable<ProductImage> productImages = _productImageRepository.GetAll(x => x.ProductId == id).ToList();
+            foreach (ProductImage image in productImages)
+            {
+                await deleteFile(image.Image);
+                _productImageRepository.delete(image.Id);
+            }
+            foreach(IFormFile file in files)
+            {
+                await uploadFile(file);
+                ProductImage productImage = new ProductImage()
+                {
+                    Image = "https:/merry.blob.core.windows.net/yume/" + file.FileName,
+                    ProductId = id
+                };
+                _productImageRepository.create(productImage);
+            }
             _postRepository.update(product);
         }
         [HttpPost]
-        public async Task create([FromQuery]ProductPostDTO dto,IFormFile file)
+        public async Task create([FromForm]ProductPostDTO dto, [FromForm] IFormFile[] files)
         {
-
             ProductPost productPost = _mapper.Map<ProductPost>(dto);
-            await uploadFile(file);
-            productPost.Img = "https:/merry.blob.core.windows.net/yume/" + file.FileName;
             _postRepository.create(productPost);
+            int productID = _postRepository.getMax();
+            foreach (IFormFile file in files)
+            {
+                await uploadFile(file);
+                ProductImage image = new ProductImage()
+                {
+                    Image = "https:/merry.blob.core.windows.net/yume/" + file.FileName,
+                    ProductId = productID
+
+                };
+                _productImageRepository.create(image);
+            }
+            
         }
         private BlobContainerClient GetBlobContainerClient()
         {
@@ -102,6 +127,7 @@ namespace FExchange.Controllers
         }
         private async Task deleteFile(string filename)
         {
+            if (filename == null || filename.Length < 2) return;
             filename = filename.Substring(filename.LastIndexOf("/") + 1);
             var container = GetBlobContainerClient();
             try

@@ -33,29 +33,33 @@ namespace FExchange.Controllers
             context = new FExchangeContext();
         }
         [HttpPost("uploadImage")]
-        public async  Task<string> upload(IFormFile file)
+        public async  Task<string> upload(IFormFile[] files)
         {
             FileInfo fileInfo;
             
             string connectionString = "DefaultEndpointsProtocol=https;AccountName=merry;AccountKey=AOHLpp9ABjn/pEwmw6skcyzHGoujukf2KFTAkWFBt8LpSZ19cTohCv/bLXhMrRBJqHqok47dVRRk+ASt1s4qRA==;EndpointSuffix=core.windows.net";
             string containerName = "yume"; 
             var container = new BlobContainerClient(connectionString,containerName);
-            try
+            foreach (IFormFile file in files)
             {
-                var blobClient = container.GetBlobClient(file.FileName);
-                using (var ms = new MemoryStream())
+                try
                 {
-                    file.CopyTo(ms);
-                    ms.Position = 0;
-                    var blobHttpHeader = new BlobHttpHeaders { ContentType = "image/jpeg" };
-                    await blobClient.UploadAsync(ms, new BlobUploadOptions { HttpHeaders = blobHttpHeader });
-                    
+                    var blobClient = container.GetBlobClient(file.FileName);
+                    using (var ms = new MemoryStream())
+                    {
+                        file.CopyTo(ms);
+                        ms.Position = 0;
+                        var blobHttpHeader = new BlobHttpHeaders { ContentType = "image/jpeg" };
+                        await blobClient.UploadAsync(ms, new BlobUploadOptions { HttpHeaders = blobHttpHeader });
+                        
+                    }
+                    return "https:\\merry.blob.core.windows.net\\yume\\" + file.FileName;
+
                 }
-               return "https:\\merry.blob.core.windows.net\\yume\\" + file.FileName;
-             
-            }catch(Exception ex)
-            {
-                throw new Exception(ex.Message);
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
             }
             return "Not OK";
         }
