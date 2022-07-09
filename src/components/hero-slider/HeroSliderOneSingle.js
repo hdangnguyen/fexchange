@@ -1,11 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
-import { UserAuth } from "../../context/AuthContext";
 
 const HeroSliderOneSingle = ({ data, sliderClassName }) => {
-  const { user } = UserAuth();
-
   return (
     <div
       className={`single-slider slider-height-1 bg-purple ${
@@ -17,7 +14,7 @@ const HeroSliderOneSingle = ({ data, sliderClassName }) => {
           <div className="col-xl-6 col-lg-6 col-md-6 col-12 col-sm-6">
             <div className="slider-content slider-animated-1">
               <h3 className="animated">Welcome to FExchange</h3>
-              <h1 className="animated">{user.displayName}</h1>
+              <h1 className="animated">Hello</h1>
               <div className="slider-btn btn-hover">
                 <Link
                   className="animated"

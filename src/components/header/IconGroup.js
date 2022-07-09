@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import MenuCart from "./sub-components/MenuCart";
 import { deleteFromCart } from "../../redux/actions/cartActions";
-import { UserAuth } from "../../context/AuthContext";
 
 const IconGroup = ({
   currency,
@@ -15,15 +14,6 @@ const IconGroup = ({
   deleteFromCart,
   iconWhiteClass,
 }) => {
-  const { logOut, user } = UserAuth();
-
-  const handleSignOut = async () => {
-    try {
-      await logOut();
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const handleClick = (e) => {
     e.currentTarget.nextSibling.classList.toggle("active");
   };
@@ -59,32 +49,7 @@ const IconGroup = ({
         >
           <i className="pe-7s-user-female" />
         </button>
-        <div className="account-dropdown">
-          <ul>
-            {user ? (
-              <li onClick={handleSignOut}>
-                <a>Logout</a>
-              </li>
-            ) : (
-              <li>
-                <Link to={process.env.PUBLIC_URL + "/login-register"}>
-                  Login
-                </Link>
-              </li>
-            )}
-
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/login-register"}>
-                Register
-              </Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/my-account"}>
-                my account
-              </Link>
-            </li>
-          </ul>
-        </div>
+        <div className="account-dropdown"></div>
       </div>
       <div className="same-style header-compare">
         <Link to={process.env.PUBLIC_URL + "/compare"}>
