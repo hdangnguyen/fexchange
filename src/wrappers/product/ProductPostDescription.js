@@ -27,6 +27,7 @@ function ProductPostDescription(props) {
         //Runs only the first render
         axios.get('https://fbuyexchange.azurewebsites.net/api/productposts/' + props.id)
             .then(res => {
+                console.log("PROPS UPDATE:" +props.id)
                 console.log('https://fbuyexchange.azurewebsites.net/api/productposts/' + props.id)
                 setPost(res.data)
                 console.log("post " + post);
@@ -35,7 +36,7 @@ function ProductPostDescription(props) {
             .catch(error => console.log(error));
         //set links from post
 
-    }, [])
+    })
     // setLinks([]);
     // console.log("link1: " + links)
     // { post.images && post.images.map((imgsrc) => setLinks(links => [...links, { 'url': imgsrc.image }])) }

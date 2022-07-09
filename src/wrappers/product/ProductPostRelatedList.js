@@ -20,16 +20,13 @@ function ProductPostRelatedList(props) {//props:biến đưa vào là post hiệ
     const [relatedpost, setRelatedPost] = useState({});
     const [links, setLinks] = useState([]);
     const [detailpost, setDetailPost] = useState(props.id);
-    const history = useHistory();
+    const history = useHistory(); 
     useEffect(() => {
         //Runs only the first render
         axios.get(`https://fbuyexchange.azurewebsites.net/api/productposts/1/19?all=true`)
             .then(res => {
                 setRelatedPosts(res.data);
-                console.log("detailid"+detailpost);
-                console.log(props.id, props.cateID)
-
-                console.log(relatedposts);
+                console.log(res.data)
             })
             .catch(error => console.log(error));
 
@@ -48,11 +45,8 @@ function ProductPostRelatedList(props) {//props:biến đưa vào là post hiệ
     const showModal = (relatedpost) => {
         setRelatedPost(relatedpost);
         setLinks([]);
-        console.log(links)
         { relatedpost.images && relatedpost.images.map((imgsrc) => setLinks(links => [...links, { 'url': imgsrc.image }])) }
         setShow(true);
-        console.log(relatedpost);
-        console.log(links);
 
     };
     const handleClose = () => setShow(false);
@@ -60,9 +54,8 @@ function ProductPostRelatedList(props) {//props:biến đưa vào là post hiệ
         <>
             <div className="container" align="center">
                 <div className="col-12" align="center"><h1>RELATED POST</h1></div>
-                <hr></hr>
                 <div className="d-flex align-content-xs-stretch flex-wrap justify-content-center">
-                    {relatedposts.filter((relatedpost) => relatedpost.categoryId == props && relatedpost.id !== detailpost).map((filteredPost) =>
+                    {relatedposts.filter(relatedpost => relatedpost.categoryId == props.cateID && relatedpost.id != props.id).map((filteredPost) => 
                         <Card className="col-xs-12 col-sm-6 col-lg-3" style={{ width: '20rem' }}>
                             <div className="position-relative">
                                 {filteredPost.images.length > 1 ? (
@@ -86,11 +79,14 @@ function ProductPostRelatedList(props) {//props:biến đưa vào là post hiệ
                             <Card.Body>
                                 <Card.Text className="text-center"><strong> VND {filteredPost.price} 000</strong></Card.Text>
                             </Card.Body>
-                        </Card>)
+                        </Card>
+                        )
                     
 
 
                     }
+
+
                     <Modal
                         show={show}
                         onHide={handleClose}

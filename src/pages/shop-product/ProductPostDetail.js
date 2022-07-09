@@ -23,16 +23,14 @@ function ProductPostDetail ({ location, product }) {
         //Runs only the first render
         axios.get('https://fbuyexchange.azurewebsites.net/api/productposts/' + postID)
             .then(res => {
-                console.log('https://fbuyexchange.azurewebsites.net/api/productposts/' + postID +"hi")
                 setPost(res.data);
-                const cateID=res.data.categoryId;
-                console.log("alo: "+cateID)
+                setCateID(res.data.categoryId)
 
             })
             .catch(error => console.log(error));
         //set links from post
 
-    }, [])
+    })
     return (
         <Fragment>
             <MetaTags>
