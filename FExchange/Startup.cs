@@ -56,8 +56,8 @@ namespace FExchange
                          builder => builder
                                     .AllowAnyMethod()
                                     .AllowAnyOrigin()
-                                    
                                     .AllowAnyHeader()
+                                    
                          );
                          
                 }
