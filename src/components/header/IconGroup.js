@@ -47,7 +47,14 @@ const IconGroup = ({
           className="account-setting-active"
           onClick={(e) => handleClick(e)}
         >
-          <i className="pe-7s-user-female" />
+          <img
+            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp"
+            class="rounded-circle"
+            height="25"
+            width="25"
+            alt="Avatar"
+            loading="lazy"
+          />
         </button>
         <div className="account-dropdown"></div>
       </div>

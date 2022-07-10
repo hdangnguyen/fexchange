@@ -10,6 +10,8 @@ import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import Axios from "axios";
+import { UserIsValid } from "../../services/authService";
 
 class Login extends Component {
   onFailure = (error) => {
@@ -23,18 +25,21 @@ class Login extends Component {
       return;
     }
 
+    UserIsValid(response.tokenId);
     const tokenBlob = new Blob(
       [JSON.stringify({ tokenId: response.tokenId }, null, 2)],
       { type: "application/json" }
     );
+
     const options = {
       method: "POST",
       body: tokenBlob,
       mode: "cors",
       cache: "default",
     };
-    fetch(config.GOOGLE_AUTH_CALLBACK_URL, options).then((r) => {
-      r.json().then((user) => {
+
+    Axios.post(config.GOOGLE_AUTH_CALLBACK_URL, options).then((response) => {
+      response.json().then((user) => {
         const token = user.token;
         console.log(token);
         this.props.login(token);
@@ -47,7 +52,7 @@ class Login extends Component {
       <div>
         <Redirect
           to={{
-            pathname: "/",
+            pathname: "/home-fashion",
           }}
         />
       </div>
@@ -91,11 +96,6 @@ class Login extends Component {
                             <h4>Login</h4>
                           </Nav.Link>
                         </Nav.Item>
-                        <Nav.Item>
-                          <Nav.Link eventKey="register">
-                            <h4>Register</h4>
-                          </Nav.Link>
-                        </Nav.Item>
                       </Nav>
                       <Tab.Content>
                         <Tab.Pane eventKey="login">
@@ -106,34 +106,6 @@ class Login extends Component {
                             </div>
                           </div>
                         </Tab.Pane>
-                        {/* <Tab.Pane eventKey="register">
-                        <div className="login-form-container">
-                          <div className="login-register-form">
-                            <form>
-                              <input
-                                type="text"
-                                name="user-name"
-                                placeholder="Username"
-                              />
-                              <input
-                                type="password"
-                                name="user-password"
-                                placeholder="Password"
-                              />
-                              <input
-                                name="user-email"
-                                placeholder="Email"
-                                type="email"
-                              />
-                              <div className="button-box">
-                                <button type="submit">
-                                  <span>Register</span>
-                                </button>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </Tab.Pane> */}
                       </Tab.Content>
                     </Tab.Container>
                   </div>
