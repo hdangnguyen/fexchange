@@ -1,15 +1,36 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import axios from 'axios';
+
+
 
 const MyAccount = ({ location }) => {
   const { pathname } = location;
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [data, setData] = useState([]);
+  useEffect(() => {
 
+    //Runs only the first render
+    axios.get('https://fbuyexchange.azurewebsites.net/api/acounts/1')
+        .then(res => {
+            console.log(data.id)
+            setData(res.data);
+            console.log(data);
+            setEmail=data.gmail;
+            setFullName=data.fullName;
+
+        })
+        .catch(error => console.log(error));
+
+
+ }, [])
   return (
     <Fragment>
       <MetaTags>
@@ -46,24 +67,29 @@ const MyAccount = ({ location }) => {
                             <div className="account-info-wrapper">
                               <h4>My Account Information</h4>
                               <h5>Your Personal Details</h5>
+                              <ul>
+                                <li>Your Full Name: {fullName}</li>
+                                <li>Your Gmail: {email}</li>
+                              </ul>
                             </div>
                             <div className="row">
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
-                                  <label>First Name</label>
-                                  <input type="text" />
-                                </div>
-                              </div>
-                              <div className="col-lg-6 col-md-6">
-                                <div className="billing-info">
-                                  <label>Last Name</label>
-                                  <input type="text" />
+                                  <label>Full Name</label>
+                                  <input
+                                    type="text"
+                                    value={fullName}
+                                    onChange={(event) => setFullName(event.target.value)}
+                                  />
                                 </div>
                               </div>
                               <div className="col-lg-12 col-md-12">
                                 <div className="billing-info">
                                   <label>Email Address</label>
-                                  <input type="email" />
+                                  <input type="email"
+                                    value={email}
+                                    onChange={(event) => setEmail(event.target.value)}
+                                  />
                                 </div>
                               </div>
                               <div className="col-lg-6 col-md-6">
@@ -81,7 +107,7 @@ const MyAccount = ({ location }) => {
                             </div>
                             <div className="billing-back-btn">
                               <div className="billing-btn">
-                                <button type="submit">Continue</button>
+                                <button type="submit">Change</button>
                               </div>
                             </div>
                           </div>

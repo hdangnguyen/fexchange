@@ -12,13 +12,14 @@ import products from "./data/products.json";
 import App from "./App";
 import "./assets/scss/style.scss";
 import * as serviceWorker from "./serviceWorker";
-
 import { composeWithDevTools } from "redux-devtools-extension";
+
 
 const store = createStore(
   rootReducer,
   load(),
-  composeWithDevTools(applyMiddleware(thunk, save()))
+  composeWithDevTools(applyMiddleware(thunk, save())),
+  +  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 // fetch products from json file

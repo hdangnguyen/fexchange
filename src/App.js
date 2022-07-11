@@ -62,7 +62,7 @@ const HomeBlackFridayTwo = lazy(() =>
 const HomeValentinesDay = lazy(() => import("./pages/home/HomeValentinesDay"));
 
 // shop pages
-const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
+const ShopGridStandard1 = lazy(() => import("./pages/shop/ShopGridStandard1"));
 const ShopGridFilter = lazy(() => import("./pages/shop/ShopGridFilter"));
 const ShopGridTwoColumn = lazy(() => import("./pages/shop/ShopGridTwoColumn"));
 const ShopGridNoSidebar = lazy(() => import("./pages/shop/ShopGridNoSidebar"));
@@ -302,8 +302,14 @@ const App = (props) => {
                 {/* Shop pages */}
                 <Route
                   path={process.env.PUBLIC_URL + "/shop-grid-standard"}
-                  component={ShopGridStandard}
+                  component={ShopGridStandard1}
                 />
+                <Route
+                  path={process.env.PUBLIC_URL + "/shop-grid-standard/search/:keyword"}
+                  component={ShopGridStandard1}
+                />
+
+                
                 <Route
                   path={process.env.PUBLIC_URL + "/shop-grid-filter"}
                   component={ShopGridFilter}
