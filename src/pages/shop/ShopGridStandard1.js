@@ -19,11 +19,25 @@ import axios from "axios";
 //da lay duoc list va bien thanh const
 //tim cach in ra theo mang filter va luu vao state
 const getAllProductPost = async () => {
-    let p = await fetch('https://fbuyexchange.azurewebsites.net/api/productposts/1/19?all=true')
+    
+        let p =[]
+        p = await fetch('https://fbuyexchange.azurewebsites.net/api/productposts/1/19?all=true')
         .then((res) => res.json())
         .then((res) => res);
+    
+    
 
     return p;
+
+
+};
+const getAllCategories = async () => {
+    
+    let c = [] 
+    c = await fetch('https://fbuyexchange.azurewebsites.net/api/categories/1/30?all=true')
+        .then((res) => res.json())
+        .then((res) => res);
+        return c;
 
 
 };
@@ -34,15 +48,32 @@ const usePostData = () => {
             if (list.length == 0) {
                 setList(await getAllProductPost());
             }
+
         };
         fetchData();
     }, [list]);
     return [list, setList];
 };
+const useCateData = () => {
+    const [cate, setCate] = useState([]);
+    useEffect(() => {
+        const fetchCateData = async () => {
+            if (cate.length == 0) {
+                
+                setCate(await getAllCategories());
+            }
+
+        };
+        fetchCateData();
+    }, [cate]);
+    return [cate, setCate];
+};
 const ShopGridStandard1 = ({ location }) => {
 
     const { pathname } = location;
     const [_posts, setPosts] = usePostData();
+    const [_categories, setCategories] = useCateData();
+
 
     useEffect(() => {
 
@@ -66,29 +97,18 @@ const ShopGridStandard1 = ({ location }) => {
                 <Breadcrumb />
 
                 <div className="shop-area pt-95 pb-100">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-3 order-2 order-lg-1">
-                                {/* shop sidebar */}
-                                {/* <ShopSidebar products={products} getSortParams={getSortParams} sideSpaceClass="mr-30"/> */}
 
-                                
+                    {/* shop topbar default */}
+                    {/* shop page content default */}
+                    <ShopPageContent posts={_posts} categories={_categories} />
 
-                            </div>
-                            <div className="col-lg-9 order-1 order-lg-2">
-                                {/* shop topbar default */}
-
-                                {/* shop page content default */}
-                                <h1></h1>
-                                <ShopPageContent posts={_posts} />
-
-                                {/* shop product pagination */}
-                                <div className="pro-pagination-style text-center mt-30">
-                                    {/* phan trang bang cach nao?? */}
-                                </div>
-                            </div>
-                        </div>
+                    {/* shop product pagination */}
+                    <div className="pro-pagination-style text-center mt-30">
+                        {/* phan trang bang cach nao?? */}
                     </div>
+
+
+
                 </div>
             </LayoutOne>
         </Fragment>

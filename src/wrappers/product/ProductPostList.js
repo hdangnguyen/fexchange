@@ -25,7 +25,7 @@ function ProductPostList() {
     // useEffect(() => {
     //     //Runs on every render
     //   });
-    useEffect(() => {
+    useEffect(() => { 
         //Runs only the first render
         axios.get(`https://fbuyexchange.azurewebsites.net/api/productposts/1/19?all=true`)
             .then(res => {
