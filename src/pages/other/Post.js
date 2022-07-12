@@ -5,7 +5,7 @@ import LayoutOne from '../../layouts/LayoutOne';
 import Breadcrumb from './../../wrappers/breadcrumb/Breadcrumb';
 import DateInput from '../../components/input/DatePicker';
 import categoryApi from './../../utils/api/categoryApi';
-import ImageUploading from 'react-images-upload';
+import ImageUploading from 'react-images-uploading';
 import Select from 'react-select';
 import { Button } from 'react-bootstrap';
 const ImageUploader = (props) => {
@@ -14,7 +14,7 @@ const ImageUploader = (props) => {
     return (
         <div className="row">
             <ImageUploading
-                className="container"
+                className="col-12"
                 multiple
                 value={images}
                 onChange={onChange}
@@ -28,27 +28,38 @@ const ImageUploader = (props) => {
                     onImageUpdate,
                     onImageRemove,
                     isDragging,
-                    DragProps,
+                    dragProps,
                 }) => (
                     <div className="container">
-                        {console.log(imageList)}
-                        <Button
-                            className={
-                                'btn btn-' + isDragging ? 'success' : 'primary'
-                            }
-                        ></Button>
-                        <Button className="btn btn-warning">
-                            Remove all images
-                        </Button>
+                        <div className="row w-100 gap-3">
+                            <Button
+                                className={
+                                    'col-2 btn btn-' +
+                                    (isDragging ? 'success' : 'primary')
+                                }
+                                onClick={onImageUpload}
+                                {...dragProps}
+                            >
+                                Load
+                            </Button>
+                            <Button
+                                className="col-2 btn btn-warning"
+                                onClick={onImageRemoveAll}
+                            >
+                                Remove all images
+                            </Button>
+                        </div>
                         {imageList.map((image, index) => (
-                            <div className="row row-cols-4">
-                                {console.log('rendered')}
+                            <div
+                                key={index + '-product-images'}
+                                className="row row-cols-4"
+                            >
                                 {/* render image slider here */}
-                                <image
+                                <img
                                     src={image['data_url']}
                                     alt=""
                                     width="100"
-                                ></image>
+                                ></img>
                                 <Button onClick={() => onImageUpdate(index)}>
                                     Update
                                 </Button>
@@ -87,7 +98,6 @@ const Post = (props) => {
         files: ['', ''],
     };
     const onChange = (imagesList, addUpdateIndex) => {
-        console.log(imagesList, addUpdateIndex);
         setImages(imagesList);
     };
     useEffect(() => {
@@ -197,11 +207,10 @@ const Post = (props) => {
                             <div className="col-12">
                                 <label className="form-label">Images</label>
                                 <ImageUploader
-                                    className="form-control"
-                                    maxNumber={100}
+                                    maxNumber={23}
                                     images={images}
                                     onChange={onChange}
-                                ></ImageUploader>
+                                />
                             </div>
                         </div>
                     </form>
