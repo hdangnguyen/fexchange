@@ -1,4 +1,9 @@
-/*------- 6. Product style  --------*/
+/*------- 7. Product style  --------*/
+.post-form   {
+  textarea {
+    resize: none;
+  }
+}
 .product-area {
   position: relative;
   .row {

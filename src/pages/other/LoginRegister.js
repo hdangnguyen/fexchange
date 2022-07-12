@@ -48,15 +48,7 @@ class Login extends Component {
   };
 
   render() {
-    let content = !!this.props.auth.isAuthenticated ? (
-      <div>
-        <Redirect
-          to={{
-            pathname: "/home-fashion",
-          }}
-        />
-      </div>
-    ) : (
+    let content = (
       <div>
         <GoogleLogin
           clientId={config.GOOGLE_CLIENT_ID}
@@ -72,7 +64,7 @@ class Login extends Component {
       <Fragment>
         <MetaTags>
           <title>FExchange | Login</title>
-          <meta
+          <meta 
             name="description"
             content="Compare page of flone react minimalist eCommerce template."
           />
