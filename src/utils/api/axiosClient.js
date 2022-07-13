@@ -13,11 +13,11 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(async (config) => {
     // Handle token hegit re ...
-    const currentUser = firebase.auth().currentUser;
-    if (currentUser) {
-        const token = await currentUser.getIdToken();
-        config.headers.Authorization = `Bearer ${token}`;
-    }
+    // const currentUser = firebase.auth().currentUser;
+    // if (currentUser) {
+    //     const token = await currentUser.getIdToken();
+    //     config.headers.Authorization = `Bearer ${token}`;
+    // }
 
     return config;
 });

@@ -11,7 +11,7 @@ import { Button } from 'react-bootstrap';
 import ImageSlider from './ImagesSlide/index';
 const ImageUploader = (props) => {
     const { maxNumber, images, onChange } = props;
-
+    // if (images.length > 0) console.log(images[0].file);
     return (
         <div className="row">
             <ImageUploading
@@ -34,7 +34,7 @@ const ImageUploader = (props) => {
                     <div className="container">
                         <div className="row row-cols-2 ">
                             <div className="col-6">
-                                <div className="d-flex gap-3">
+                                <div className="d-flex">
                                     <Button
                                         className={
                                             'col-3 btn btn-' +
@@ -46,14 +46,13 @@ const ImageUploader = (props) => {
                                         Load
                                     </Button>
                                     <Button
-                                        className="col btn btn-warning"
+                                        className="col ml-3 btn btn-warning"
                                         onClick={onImageRemoveAll}
                                     >
                                         Remove all images
                                     </Button>
                                 </div>
                             </div>
-
                             <div className="col-6">
                                 <ImageSlider images={imageList}></ImageSlider>
                             </div>
@@ -66,33 +65,35 @@ const ImageUploader = (props) => {
 };
 const Post = (props) => {
     const { pathname } = props;
-    const [categories, setCategories] = useState([]);
     const [categoriesDataShow, setCategoriesDataShow] = useState([]);
-    const [selectedFile, setFile] = useState(null);
     const [images, setImages] = useState([]);
-    const data = {
-        id: new Date().getTime,
+    const [data, setData] = useState({
+        id: 0,
         name: 'Áo khoác bé xinh',
         price: 120000,
-        boughDate: new Date().toDateString,
+        boughDate: new Date('2022-12-12'),
         img: '',
         goodsStatus: 1,
         description: 'Một chiếc áo bé xinh đẹp',
         status: 'Tốt',
-        accountId: '12312312',
-        categoryId: 'cate-1234',
+        accountId: 1,
+        categoryId: 1,
         accountName: 'Đăng',
         categoryName: 'Quần áo',
-        NumberOfExchangeDesires: 1,
-        images: ['', ''],
-        files: ['', ''],
-    };
-    const onChange = (imagesList, addUpdateIndex) => {
+        numberOfExchangeDesires: 1,
+        files: [],
+    });
+    const onImageUpload = (imagesList, addUpdateIndex) => {
         setImages(imagesList);
+        const tmpFile = imagesList.map((item) => item.file);
+        setData({
+            ...data,
+            files: tmpFile,
+        });
     };
     useEffect(() => {
+        console.log(data);
         const test = async () => {
-            let tmpCategories = [];
             let tmpShowCategories = [];
             for (let i = 1; i < 8; i++) {
                 const data = await categoryApi
@@ -103,13 +104,16 @@ const Post = (props) => {
                     value: data.id || 0,
                     label: data.category1 || 'other',
                 });
-                tmpCategories.push(data);
             }
-            setCategories(tmpCategories);
             setCategoriesDataShow(tmpShowCategories);
         };
         test();
-    }, []);
+    }, [data]);
+    const onSubmit = (e) => {
+        e.preventDefault();
+        console.log(e);
+    };
+
     return (
         <Fragment>
             <MetaTags>
@@ -128,7 +132,7 @@ const Post = (props) => {
                         <p className="h2">Create your product</p>
                     </div>
                 </div>
-                <div className="row">
+                <form className="row" onSubmit={(e) => onSubmit(e)}>
                     <div className="container col-sm-10 col-lg-8 col-xl-6 post-form">
                         <div className="row m-1 m-md-3">
                             <div className="col">
@@ -139,6 +143,14 @@ const Post = (props) => {
                                     className="form-control"
                                     type="text"
                                     name="name"
+                                    value={data.name}
+                                    onChange={(e) =>
+                                        setData({
+                                            ...data,
+                                            name: e.target.value,
+                                        })
+                                    }
+                                    required
                                 />
                             </div>
                             <div className="col-3">
@@ -147,6 +159,34 @@ const Post = (props) => {
                                     className="form-control"
                                     type="number"
                                     name="price"
+                                    value={data.price}
+                                    onChange={(e) =>
+                                        setData({
+                                            ...data,
+                                            price: parseInt(e.target.value),
+                                        })
+                                    }
+                                    required
+                                />
+                            </div>
+                            <div className="col-3">
+                                <label className="form-label">
+                                    Exchange desires
+                                </label>
+                                <input
+                                    className="form-control"
+                                    type="number"
+                                    name="exchangeDesires"
+                                    value={data.numberOfExchangeDesires}
+                                    onChange={(e) =>
+                                        setData({
+                                            ...data,
+                                            numberOfExchangeDesires: parseInt(
+                                                e.target.value
+                                            ),
+                                        })
+                                    }
+                                    required
                                 />
                             </div>
                         </div>
@@ -159,6 +199,14 @@ const Post = (props) => {
                                     className="form-control"
                                     type="text"
                                     name="description"
+                                    value={data.description}
+                                    onChange={(e) =>
+                                        setData({
+                                            ...data,
+                                            description: e.target.value,
+                                        })
+                                    }
+                                    required
                                     rows="5"
                                 />
                             </div>
@@ -168,11 +216,33 @@ const Post = (props) => {
                                 <label className="form-label">
                                     Bought date
                                 </label>
-                                <DateInput className="form-control"></DateInput>
+                                <DateInput
+                                    required
+                                    className="form-control"
+                                    selected={data.boughDate}
+                                    onChange={(date) => {
+                                        setData({
+                                            ...data,
+                                            boughDate: date,
+                                        });
+                                        console.log(date);
+                                    }}
+                                ></DateInput>
                             </div>
                             <div className="col-3">
                                 <label className="form-label">Status</label>
-                                <input type="text" className="form-control" />
+                                <input
+                                    required
+                                    type="text"
+                                    className="form-control"
+                                    value={data.status}
+                                    onChange={(e) =>
+                                        setData({
+                                            ...data,
+                                            status: e.target.value,
+                                        })
+                                    }
+                                />
                             </div>
                             <div className="col-6">
                                 <label className="form-label">Category</label>
@@ -188,6 +258,14 @@ const Post = (props) => {
                                             zIndex: 1000,
                                         }),
                                     }}
+                                    onChange={(selected) => {
+                                        setData({
+                                            ...data,
+                                            categoryName: selected.label,
+                                            categoryId: selected.value,
+                                        });
+                                    }}
+                                    required
                                 ></Select>
                             </div>
                         </div>
@@ -197,15 +275,19 @@ const Post = (props) => {
                                 <ImageUploader
                                     maxNumber={23}
                                     images={images}
-                                    onChange={onChange}
+                                    onChange={onImageUpload}
                                 />
                             </div>
                         </div>
                         <div className="container-fluid d-flex justify-content-end 6">
-                            <Button>Create</Button>
+                            <input
+                                type="submit"
+                                value="Create"
+                                className="col-2 btn btn-primary"
+                            />
                         </div>
                     </div>
-                </div>
+                </form>
             </LayoutOne>
         </Fragment>
     );

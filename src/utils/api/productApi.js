@@ -1,15 +1,23 @@
-import axiosClient from "./axiosClient";
+import axiosClient from './axiosClient';
 
 const productApi = {
-  getAll: (params) => {
-    const url = "/productposts";
+    getAll: (params) => {
+        const url = '/productposts';
 
-    return axiosClient.get(url, { params });
-  },
-  get: (id) => {
-    const url = `/productposts/${id}`;
-    return axiosClient.get(url);
-  },
+        return axiosClient.get(url, { params });
+    },
+    get: (id) => {
+        const url = `/productposts/${id}`;
+        return axiosClient.get(url);
+    },
+    post: (product) => {
+        const url = '/productposts';
+        return axiosClient.post(url, product, {
+            headers: {
+                'Content-type': 'multipart/form-data',
+            },
+        });
+    },
 };
 
 export default productApi;

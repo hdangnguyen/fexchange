@@ -17,6 +17,7 @@ const ImageSlider = (props) => {
                 width: 300,
                 height: 400,
             }}
+            bullets={false}
         >
             {images.map((image, index) => (
                 <div key={index + '-product-images'} className="h-100">

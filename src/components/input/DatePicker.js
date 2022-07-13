@@ -8,11 +8,7 @@ const DateInput = (props) => {
     const { data, onChange, ...rest } = props;
 
     return (
-        <DatePicker
-            selected={date}
-            onChange={(date) => setDate(date)}
-            {...rest}
-        />
+        <DatePicker selected={date} onChange={() => onChange(date)} {...rest} />
     );
 };
 
