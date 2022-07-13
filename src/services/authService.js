@@ -1,27 +1,26 @@
 import jwt from "jsonwebtoken";
-import axios from "axios";
+import axiosClient from './../utils/api/axiosClient';
+import axios  from 'axios';
 
 export async function UserIsValid(token) {
-  console.log("the token is " + token.user);
   let bodyFormData = new FormData();
-  var decodedToken = jwt.decode(token);
-  bodyFormData.append("tokenId", token);
-  await axios({
+  bodyFormData.append('tokenId', token);
+  const responseToken = await axios({
     method: "POST",
-    url: process.env.REACT_APP_API_URL + "/api/login/callback",
+    url: process.env.REACT_APP_API_URL + '/api/login/google',
     headers: {
-      "content-type": "application/json",
+      "Content-Type" : "multipart/form-data",
     },
-    data: bodyFormData,
+    data: bodyFormData  
+  }).then((res) => {
+    return res.data.token
+    // console.log(res.data)  
+  }).catch((err) => {
+    console.log(err)
   })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-
+  
+  var decodedToken = jwt.decode(responseToken);
   var dateNow = new Date();
-  if (decodedToken.exp > dateNow.getTime() / 1000) return true;
+  if (decodedToken.exp > dateNow.getTime() / 1000) return responseToken;
   else return false;
 }
