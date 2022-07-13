@@ -6,13 +6,13 @@ import "firebase/compat/auth";
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
-    "content-type": "application/json",
+    "Content-Type": "multipart/form-data",
   },
   paramsSerializer: (params) => queryString.stringify(params),
 });
 
 axiosClient.interceptors.request.use(async (config) => {
-  // Handle token here ...
+  // Handle token hegit re ...
   const currentUser = firebase.auth().currentUser;
   if (currentUser) {
     const token = await currentUser.getIdToken();

@@ -18,45 +18,20 @@ class Login extends Component {
     alert(error);
   };
 
-  googleResponse = (response) => {
+  googleResponse = async (response) => {
     console.log(response);
     if (!response.tokenId) {
       console.error("Unable to get tokenId from Google", response);
       return;
     }
 
-    UserIsValid(response.tokenId);
-    const tokenBlob = new Blob(
-      [JSON.stringify({ tokenId: response.tokenId }, null, 2)],
-      { type: "application/json" }
-    );
-
-    const options = {
-      method: "POST",
-      body: tokenBlob,
-      mode: "cors",
-      cache: "default",
-    };
-
-    Axios.post(config.GOOGLE_AUTH_CALLBACK_URL, options).then((response) => {
-      response.json().then((user) => {
-        const token = user.token;
-        console.log(token);
-        this.props.login(token);
-      });
-    });
+    const token = await UserIsValid(response.tokenId);
+    // Handle token from server here
+    console.log(token);
   };
 
   render() {
-    let content = !!this.props.auth.isAuthenticated ? (
-      <div>
-        <Redirect
-          to={{
-            pathname: "/home-fashion",
-          }}
-        />
-      </div>
-    ) : (
+    let content = (
       <div>
         <GoogleLogin
           clientId={config.GOOGLE_CLIENT_ID}
@@ -72,7 +47,7 @@ class Login extends Component {
       <Fragment>
         <MetaTags>
           <title>FExchange | Login</title>
-          <meta
+          <meta 
             name="description"
             content="Compare page of flone react minimalist eCommerce template."
           />
