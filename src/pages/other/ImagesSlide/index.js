@@ -13,6 +13,10 @@ const ImageSlider = (props) => {
             play={true}
             interval={5000}
             customContent={<ModifierContent />}
+            style={{
+                width: 300,
+                height: 400,
+            }}
         >
             {images.map((image, index) => (
                 <div key={index + '-product-images'} className="h-100">

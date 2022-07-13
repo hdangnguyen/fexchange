@@ -32,26 +32,31 @@ const ImageUploader = (props) => {
                     dragProps,
                 }) => (
                     <div className="container">
-                        <div className="d-flex gap-3">
-                            <Button
-                                className={
-                                    'col-2 btn btn-' +
-                                    (isDragging ? 'success' : 'primary')
-                                }
-                                onClick={onImageUpload}
-                                {...dragProps}
-                            >
-                                Load
-                            </Button>
-                            <Button
-                                className="col-3 btn btn-warning"
-                                onClick={onImageRemoveAll}
-                            >
-                                Remove all images
-                            </Button>
-                        </div>
-                        <div className="container p-5">
-                            <ImageSlider images={imageList}></ImageSlider>
+                        <div className="row row-cols-2 ">
+                            <div className="col-6">
+                                <div className="d-flex gap-3">
+                                    <Button
+                                        className={
+                                            'col-3 btn btn-' +
+                                            (isDragging ? 'success' : 'primary')
+                                        }
+                                        onClick={onImageUpload}
+                                        {...dragProps}
+                                    >
+                                        Load
+                                    </Button>
+                                    <Button
+                                        className="col btn btn-warning"
+                                        onClick={onImageRemoveAll}
+                                    >
+                                        Remove all images
+                                    </Button>
+                                </div>
+                            </div>
+
+                            <div className="col-6">
+                                <ImageSlider images={imageList}></ImageSlider>
+                            </div>
                         </div>
                     </div>
                 )}
@@ -71,7 +76,7 @@ const Post = (props) => {
         price: 120000,
         boughDate: new Date().toDateString,
         img: '',
-        goodsStatus: 23,
+        goodsStatus: 1,
         description: 'Một chiếc áo bé xinh đẹp',
         status: 'Tốt',
         accountId: '12312312',
@@ -144,16 +149,6 @@ const Post = (props) => {
                                     name="price"
                                 />
                             </div>
-                            <div className="col-3">
-                                <label className="form-label">
-                                    Goods status
-                                </label>
-                                <input
-                                    className="form-control"
-                                    type="number"
-                                    name="goodsStatus"
-                                />
-                            </div>
                         </div>
                         <div className="row m-3">
                             <div className="col">
@@ -205,6 +200,9 @@ const Post = (props) => {
                                     onChange={onChange}
                                 />
                             </div>
+                        </div>
+                        <div className="container-fluid d-flex justify-content-end 6">
+                            <Button>Create</Button>
                         </div>
                     </div>
                 </div>
