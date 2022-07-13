@@ -23,15 +23,13 @@ class Login extends Component {
     if (!response.tokenId) {
       console.error("Unable to get tokenId from Google", response);
       return;
-    }else{
-      console.log("This is token id1: "+response.tokenId);
+    } else {
+      console.log("This is token id1: " + response.tokenId);
     }
-
-    
 
     UserIsValid(response.tokenId);
     const tokenBlob = new Blob(
-      [JSON.stringify({ "tokenId": ""+response.tokenId })],
+      [JSON.stringify({ tokenId: "" + response.tokenId })],
       { type: "application/json" }
     );
 
@@ -68,7 +66,7 @@ class Login extends Component {
       <Fragment>
         <MetaTags>
           <title>FExchange | Login</title>
-          <meta 
+          <meta
             name="description"
             content="Compare page of flone react minimalist eCommerce template."
           />

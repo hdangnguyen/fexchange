@@ -7,7 +7,7 @@ export async function UserIsValid(token) {
   bodyFormData.append("tokenId", token);
   const responseToken = await axios({
     method: "POST",
-    url: process.env.REACT_APP_API_URL + "/api/login/google",
+    url: process.env.REACT_APP_API_URL + "/login/google",
     headers: {
       "Content-Type": "multipart/form-data",
     },
