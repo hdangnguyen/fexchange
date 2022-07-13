@@ -23,19 +23,20 @@ class Login extends Component {
     if (!response.tokenId) {
       console.error("Unable to get tokenId from Google", response);
       return;
+    }else{
+      console.log("This is token id1: "+response.tokenId);
     }
+
+    
 
     UserIsValid(response.tokenId);
     const tokenBlob = new Blob(
-      [JSON.stringify({ tokenId: response.tokenId }, null, 2)],
+      [JSON.stringify({ "tokenId": ""+response.tokenId })],
       { type: "application/json" }
     );
 
     const options = {
-      method: "POST",
-      body: tokenBlob,
-      mode: "cors",
-      cache: "default",
+      tokenId: response.tokenId,
     };
 
     Axios.post(config.GOOGLE_AUTH_CALLBACK_URL, options).then((response) => {
