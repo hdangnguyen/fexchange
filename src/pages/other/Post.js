@@ -8,6 +8,7 @@ import categoryApi from './../../utils/api/categoryApi';
 import ImageUploading from 'react-images-uploading';
 import Select from 'react-select';
 import { Button } from 'react-bootstrap';
+import ImageSlider from './ImagesSlide/index';
 const ImageUploader = (props) => {
     const { maxNumber, images, onChange } = props;
 
@@ -31,7 +32,7 @@ const ImageUploader = (props) => {
                     dragProps,
                 }) => (
                     <div className="container">
-                        <div className="row w-100 gap-3">
+                        <div className="d-flex gap-3">
                             <Button
                                 className={
                                     'col-2 btn btn-' +
@@ -43,31 +44,15 @@ const ImageUploader = (props) => {
                                 Load
                             </Button>
                             <Button
-                                className="col-2 btn btn-warning"
+                                className="col-3 btn btn-warning"
                                 onClick={onImageRemoveAll}
                             >
                                 Remove all images
                             </Button>
                         </div>
-                        {imageList.map((image, index) => (
-                            <div
-                                key={index + '-product-images'}
-                                className="row row-cols-4"
-                            >
-                                {/* render image slider here */}
-                                <img
-                                    src={image['data_url']}
-                                    alt=""
-                                    width="100"
-                                ></img>
-                                <Button onClick={() => onImageUpdate(index)}>
-                                    Update
-                                </Button>
-                                <Button onClick={() => onImageRemove(index)}>
-                                    Delete
-                                </Button>
-                            </div>
-                        ))}
+                        <div className="container p-5">
+                            <ImageSlider images={imageList}></ImageSlider>
+                        </div>
                     </div>
                 )}
             </ImageUploading>
@@ -139,7 +124,7 @@ const Post = (props) => {
                     </div>
                 </div>
                 <div className="row">
-                    <form className="container col-sm-10 col-lg-8 col-xl-6 post-form">
+                    <div className="container col-sm-10 col-lg-8 col-xl-6 post-form">
                         <div className="row m-1 m-md-3">
                             <div className="col">
                                 <label className="form-label">
@@ -197,9 +182,17 @@ const Post = (props) => {
                             <div className="col-6">
                                 <label className="form-label">Category</label>
                                 <Select
-                                    className=""
+                                    className="position-relative zindex-dropdown"
                                     options={categoriesDataShow}
-                                    components={{ IndicatorSeparator: null }}
+                                    components={{
+                                        IndicatorSeparator: null,
+                                    }}
+                                    styles={{
+                                        menu: (base) => ({
+                                            ...base,
+                                            zIndex: 1000,
+                                        }),
+                                    }}
                                 ></Select>
                             </div>
                         </div>
@@ -213,7 +206,7 @@ const Post = (props) => {
                                 />
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </LayoutOne>
         </Fragment>
