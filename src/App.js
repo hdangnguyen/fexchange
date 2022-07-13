@@ -64,6 +64,7 @@ const HomeValentinesDay = lazy(() => import("./pages/home/HomeValentinesDay"));
 // shop pages
 const ShopGridStandard1 = lazy(() => import("./pages/shop/ShopGridStandard1"));
 const ShopGridFilter = lazy(() => import("./pages/shop/ShopGridFilter"));
+const ShopDetail = lazy(() => import("./pages/shop/ShopDetail"));
 const ShopGridTwoColumn = lazy(() => import("./pages/shop/ShopGridTwoColumn"));
 const ShopGridNoSidebar = lazy(() => import("./pages/shop/ShopGridNoSidebar"));
 const ShopGridFullWidth = lazy(() => import("./pages/shop/ShopGridFullWidth"));
@@ -313,6 +314,10 @@ const App = (props) => {
                 <Route
                   path={process.env.PUBLIC_URL + "/shop-grid-filter"}
                   component={ShopGridFilter}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/shop-detail"}
+                  component={ShopDetail}
                 />
                 <Route
                   path={process.env.PUBLIC_URL + "/shop-grid-two-column"}

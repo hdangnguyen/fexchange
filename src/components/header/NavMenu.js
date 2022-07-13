@@ -6,11 +6,10 @@ import { multilanguage } from "redux-multilanguage";
 const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
   return (
     <div
-      className={` ${
-        sidebarMenu
+      className={` ${sidebarMenu
           ? "sidebar-menu"
           : `main-menu ${menuWhiteClass ? menuWhiteClass : ""}`
-      } `}
+        } `}
     >
       <nav>
         <ul>
@@ -279,7 +278,11 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
                     </Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "/shop-grid-filter"}>
+                    {/* <Link to={process.env.PUBLIC_URL + "/shop-grid-filter"}>
+                      {strings["shop_grid_filter"]}
+                    </Link> */}
+                    {/* chua hieu tại sao ko thay đổi được tên trên navlist */}
+                    <Link to={process.env.PUBLIC_URL + "/shop-detail"}>
                       {strings["shop_grid_filter"]}
                     </Link>
                   </li>
