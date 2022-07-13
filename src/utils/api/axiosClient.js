@@ -4,6 +4,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 
 const axiosClient = axios.create({
+
     baseURL: process.env.REACT_APP_API_URL,
     headers: {
         'content-type': 'multipart/form-data',
@@ -18,6 +19,7 @@ axiosClient.interceptors.request.use(async (config) => {
     //   const token = await currentUser.getIdToken();
     //   config.headers.Authorization = `Bearer ${token}`;
     // }
+
 
     return config;
 });

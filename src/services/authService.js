@@ -1,3 +1,4 @@
+
 import jwt from 'jsonwebtoken';
 import axiosClient from './../utils/api/axiosClient';
 
@@ -21,4 +22,5 @@ export function UserIsValid(token) {
     var dateNow = new Date();
     if (decodedToken.exp > dateNow.getTime() / 1000) return true;
     else return false;
+
 }

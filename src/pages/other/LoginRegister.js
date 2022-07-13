@@ -18,24 +18,25 @@ class Login extends Component {
     alert(error);
   };
 
-  googleResponse = (response) => {
+  googleResponse = async (response) => {
     console.log(response);
     if (!response.tokenId) {
       console.error("Unable to get tokenId from Google", response);
       return;
+    }else{
+      console.log("This is token id1: "+response.tokenId);
     }
+
+    
 
     UserIsValid(response.tokenId);
     const tokenBlob = new Blob(
-      [JSON.stringify({ tokenId: response.tokenId }, null, 2)],
+      [JSON.stringify({ "tokenId": ""+response.tokenId })],
       { type: "application/json" }
     );
 
     const options = {
-      method: "POST",
-      body: tokenBlob,
-      mode: "cors",
-      cache: "default",
+      tokenId: response.tokenId,
     };
 
     Axios.post(config.GOOGLE_AUTH_CALLBACK_URL, options).then((response) => {
@@ -45,6 +46,10 @@ class Login extends Component {
         this.props.login(token);
       });
     });
+
+    const token = await UserIsValid(response.tokenId);
+    // Handle token from server here
+    console.log(token);
   };
 
   render() {
@@ -59,7 +64,6 @@ class Login extends Component {
         />
       </div>
     );
-
     return (
       <Fragment>
         <MetaTags>
@@ -76,6 +80,7 @@ class Login extends Component {
         <LayoutOne headerTop="visible">
           {/* breadcrumb */}
           <Breadcrumb />
+
           <div className="login-register-area pt-100 pb-100">
             <div className="container">
               <div className="row">
