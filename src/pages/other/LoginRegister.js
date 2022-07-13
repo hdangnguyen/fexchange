@@ -42,7 +42,6 @@ class Login extends Component {
         />
       </div>
     );
-
     return (
       <Fragment>
         <MetaTags>
@@ -59,6 +58,7 @@ class Login extends Component {
         <LayoutOne headerTop="visible">
           {/* breadcrumb */}
           <Breadcrumb />
+
           <div className="login-register-area pt-100 pb-100">
             <div className="container">
               <div className="row">
