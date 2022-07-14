@@ -38,11 +38,7 @@ class Login extends Component {
     };
 
     Axios.post(config.GOOGLE_AUTH_CALLBACK_URL, options).then((response) => {
-      response.json().then((user) => {
-        const token = user.token;
-        console.log(token);
-        this.props.login(token);
-      });
+      this.props.login(response.data.token);
     });
 
     const token = await UserIsValid(response.tokenId);

@@ -9,9 +9,9 @@ export async function UserIsValid(token) {
     method: "POST",
     url: process.env.REACT_APP_API_URL + "/login/google",
     headers: {
-      "Content-Type": "multipart/form-data",
+      "Content-Type": "application/json",
     },
-    data: bodyFormData,
+    data: { tokenId: token },
   })
     .then((res) => {
       return res.data.token;
