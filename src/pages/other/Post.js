@@ -1,4 +1,10 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, {
+    forwardRef,
+    Fragment,
+    useEffect,
+    useRef,
+    useState,
+} from 'react';
 import { MetaTags } from 'react-meta-tags';
 import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 import LayoutOne from '../../layouts/LayoutOne';
@@ -7,9 +13,13 @@ import DateInput from '../../components/input/DatePicker';
 import categoryApi from './../../utils/api/categoryApi';
 import ImageUploading from 'react-images-uploading';
 import Select from 'react-select';
-import { Button } from 'react-bootstrap';
+import { Button, Overlay, OverlayTrigger, Toast } from 'react-bootstrap';
 import ImageSlider from './ImagesSlide/index';
 import productApi from './../../utils/api/productApi';
+import { ToastConsumer } from 'react-toast-notifications';
+import { useToasts } from 'react-toast-notifications';
+import { useHistory } from 'react-router-dom';
+import TooltipBox from './../../components/tooltip/index';
 const ImageUploader = (props) => {
     const { maxNumber, images, onChange } = props;
     // if (images.length > 0) console.log(images[0].file);
@@ -65,21 +75,28 @@ const ImageUploader = (props) => {
     );
 };
 const Post = (props) => {
+    //TODO: get user id and name from local storage
+    //TODO: redirect to manage path and make a toast
     const { pathname } = props;
+    const { addToast } = useToasts();
+    const history = useHistory();
     const [categoriesDataShow, setCategoriesDataShow] = useState([]);
+    const [showInvalid, setShowInvalid] = useState({
+        selectBox: false,
+    });
     const [images, setImages] = useState([]);
     const [data, setData] = useState({
         id: 0,
-        name: 'Áo khoác bé xinh',
-        price: 120000,
-        boughtDate: new Date('2022-12-12'),
+        name: '',
+        price: 0,
+        boughtDate: new Date(),
         goodsStatus: 1,
-        description: 'Một chiếc áo bé xinh đẹp',
-        status: 'Tốt',
-        accountId: 1,
-        categoryId: 1,
-        accountName: 'Đăng',
-        categoryName: 'Quần áo',
+        description: '',
+        status: '',
+        accountId: '',
+        categoryId: undefined,
+        accountName: 'Đăng', //TODO: change to user when login success
+        categoryName: 'Unknown',
         numberOfExchangeDesires: 1,
         files: [],
     });
@@ -92,8 +109,7 @@ const Post = (props) => {
         });
     };
     useEffect(() => {
-        console.log(data);
-        const test = async () => {
+        const getCategories = async () => {
             let tmpShowCategories = [];
             for (let i = 1; i < 8; i++) {
                 const data = await categoryApi
@@ -107,13 +123,23 @@ const Post = (props) => {
             }
             setCategoriesDataShow(tmpShowCategories);
         };
-        test();
+        getCategories();
     }, [data]);
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-        productApi.post(data).then((res) => {
-            console.log(res);
-        });
+        productApi
+            .post(data)
+            .then((res) => {
+                console.log(res);
+                history.push('/'); //TODO: redirect to manage page
+                addToast('Success', { appearance: 'success' });
+            })
+            .catch((err) => {
+                console.log(err);
+                addToast('Some thing went wrong', {
+                    appearance: 'error',
+                });
+            });
     };
 
     return (
@@ -246,10 +272,10 @@ const Post = (props) => {
                                     }
                                 />
                             </div>
-                            <div className="col-6">
+                            <div className="col-6 select-wrapper-container">
                                 <label className="form-label">Category</label>
                                 <Select
-                                    className="position-relative zindex-dropdown"
+                                    className="position-relative zindex-dropdown select-wrapper"
                                     options={categoriesDataShow}
                                     components={{
                                         IndicatorSeparator: null,
@@ -267,8 +293,15 @@ const Post = (props) => {
                                             categoryId: selected.value,
                                         });
                                     }}
-                                    required
                                 ></Select>
+                                <input
+                                    className="input-required"
+                                    type="text"
+                                    value={data.categoryId}
+                                    tabIndex={-1}
+                                    autoComplete="off"
+                                    required
+                                />
                             </div>
                         </div>
                         <div className="row m-3">
