@@ -1,4 +1,6 @@
 import axiosClient from './axiosClient';
+import { capitalizeFirstLetter } from '../helper';
+import { convertToString } from './../helper';
 
 const productApi = {
     getAll: (params) => {
@@ -11,8 +13,19 @@ const productApi = {
         return axiosClient.get(url);
     },
     post: (product) => {
-        const url = '/productposts';
-        return axiosClient.post(url, product, {
+        const url = '/api/productposts';
+        let formData = new FormData();
+        Object.keys(product).map((key) => {
+            console.log(capitalizeFirstLetter(key));
+            formData.append(
+                key === 'files' || key === 'id'
+                    ? key
+                    : capitalizeFirstLetter(key),
+                product[key]
+            );
+        });
+        formData.set('BoughtDate', convertToString(product.boughtDate));
+        return axiosClient.post(url, formData, {
             headers: {
                 'Content-type': 'multipart/form-data',
             },

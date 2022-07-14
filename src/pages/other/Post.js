@@ -9,6 +9,7 @@ import ImageUploading from 'react-images-uploading';
 import Select from 'react-select';
 import { Button } from 'react-bootstrap';
 import ImageSlider from './ImagesSlide/index';
+import productApi from './../../utils/api/productApi';
 const ImageUploader = (props) => {
     const { maxNumber, images, onChange } = props;
     // if (images.length > 0) console.log(images[0].file);
@@ -37,7 +38,7 @@ const ImageUploader = (props) => {
                                 <div className="d-flex">
                                     <Button
                                         className={
-                                            'col-3 btn btn-' +
+                                            'col-3 indigo-300 btn btn-' +
                                             (isDragging ? 'success' : 'primary')
                                         }
                                         onClick={onImageUpload}
@@ -46,7 +47,7 @@ const ImageUploader = (props) => {
                                         Load
                                     </Button>
                                     <Button
-                                        className="col ml-3 btn btn-warning"
+                                        className="col bg-indigo-100 ml-3 btn btn-warning"
                                         onClick={onImageRemoveAll}
                                     >
                                         Remove all images
@@ -71,8 +72,7 @@ const Post = (props) => {
         id: 0,
         name: 'Áo khoác bé xinh',
         price: 120000,
-        boughDate: new Date('2022-12-12'),
-        img: '',
+        boughtDate: new Date('2022-12-12'),
         goodsStatus: 1,
         description: 'Một chiếc áo bé xinh đẹp',
         status: 'Tốt',
@@ -111,7 +111,9 @@ const Post = (props) => {
     }, [data]);
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log(e);
+        productApi.post(data).then((res) => {
+            console.log(res);
+        });
     };
 
     return (
@@ -219,11 +221,11 @@ const Post = (props) => {
                                 <DateInput
                                     required
                                     className="form-control"
-                                    selected={data.boughDate}
+                                    selected={data.boughtDate}
                                     onChange={(date) => {
                                         setData({
                                             ...data,
-                                            boughDate: date,
+                                            boughtDate: date,
                                         });
                                         console.log(date);
                                     }}
