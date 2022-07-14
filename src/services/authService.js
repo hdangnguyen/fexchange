@@ -4,18 +4,19 @@ import axios from 'axios';
 import productApi from './../utils/api/productApi';
 
 export async function UserIsValid(token) {
-    var decodedToken = jwt.decode(token);
-    console.log(decodedToken);
-    let bodyFormData = new FormData();
-    const responseToken = await axios({
-        method: 'POST',
-        url: process.env.REACT_APP_API_URL + '/api/login/google',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        data: {
-            tokenId: token,
-        },
+  let bodyFormData = new FormData();
+  bodyFormData.append("tokenId", token);
+  const responseToken = await axios({
+    method: "POST",
+    url: process.env.REACT_APP_API_URL + "/login/google",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: { tokenId: token },
+  })
+    .then((res) => {
+      return res.data.token;
+      // console.log(res.data)
     })
         .then((res) => {
             console.log(res);
