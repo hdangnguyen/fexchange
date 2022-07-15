@@ -1,7 +1,5 @@
 import axios from "axios";
 import queryString from "query-string";
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
 
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,

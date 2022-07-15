@@ -11,7 +11,6 @@ import Nav from "react-bootstrap/Nav";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import Axios from "axios";
-import { UserIsValid } from "../../services/authService";
 
 class Login extends Component {
   onFailure = (error) => {
@@ -27,27 +26,24 @@ class Login extends Component {
       console.log("This is token id1: " + response.tokenId);
     }
 
-    UserIsValid(response.tokenId);
-    const tokenBlob = new Blob(
-      [JSON.stringify({ tokenId: "" + response.tokenId })],
-      { type: "application/json" }
-    );
-
-    const options = {
-      tokenId: response.tokenId,
-    };
-
-    Axios.post(config.GOOGLE_AUTH_CALLBACK_URL, options).then((response) => {
-      this.props.login(response.data.token);
+    await Axios({
+      method: "POST",
+      url: process.env.REACT_APP_API_URL + "/login/google",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: { tokenId: response.tokenId },
+    }).then((res) => {
+      console.log(res.data);
+      localStorage.setItem("token", res.data);
+      return res.data.token;
     });
-
-    const token = await UserIsValid(response.tokenId);
-    // Handle token from server here
-    console.log(token);
   };
 
   render() {
-    let content = (
+    let content = !this.props.auth.isAuthenticated ? (
+      <Redirect to="login-register" />
+    ) : (
       <div>
         <GoogleLogin
           clientId={config.GOOGLE_CLIENT_ID}
