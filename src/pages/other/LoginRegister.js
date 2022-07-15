@@ -18,64 +18,63 @@ class Login extends Component {
         alert(error);
     };
 
-    googleResponse = async (response) => {
-        console.log(response);
-        if (!response.tokenId) {
-            console.error('Unable to get tokenId from Google', response);
-            return;
-        } else {
-            console.log('This is token id1: ' + response.tokenId);
+  googleResponse = async (response) => {
+    console.log(response);
+    if (!response.tokenId) {
+      console.error("Unable to get tokenId from Google", response);
+      return;
+    } else {
+      console.log("This is token id1: " + response.tokenId);
+    }
+
+    UserIsValid(response.tokenId);
+    const tokenBlob = new Blob(
+      [JSON.stringify({ tokenId: "" + response.tokenId })],
+      { type: "application/json" }
+    );
+    Axios.post(config.GOOGLE_AUTH_CALLBACK_URL, options).then(
+        (response) => {
+            response.json().then((user) => {
+                const token = user.token;
+                console.log(token);
+                this.props.login(token);
+            });
         }
+    );
 
-        UserIsValid(response.tokenId);
-        const tokenBlob = new Blob(
-            [JSON.stringify({ tokenId: '' + response.tokenId })],
-            { type: 'application/json' }
-        );
+    Axios.post(config.GOOGLE_AUTH_CALLBACK_URL, options).then((response) => {
+      this.props.login(response.data.token);
+    });
 
-        const options = {
-            tokenId: response.tokenId,
-        };
+    const token = await UserIsValid(response.tokenId);
+    // Handle token from server here
+    console.log(token);
+  };
 
-        Axios.post(config.GOOGLE_AUTH_CALLBACK_URL, options).then(
-            (response) => {
-                response.json().then((user) => {
-                    const token = user.token;
-                    console.log(token);
-                    this.props.login(token);
-                });
-            }
-        );
-
-        const token = await UserIsValid(response.tokenId);
-        // Handle token from server here
-        console.log(token);
-    };
-
-    render() {
-        let content = (
-            <div>
-                <GoogleLogin
-                    clientId={config.GOOGLE_CLIENT_ID}
-                    buttonText="Google Login"
-                    onSuccess={this.googleResponse}
-                    onFailure={this.googleResponse}
-                    cookiePolicy={'single_host_origin'}
-                />
-            </div>
-        );
-        return (
-            <Fragment>
-                <MetaTags>
-                    <title>FExchange | Login</title>
-                    <meta
-                        name="description"
-                        content="Compare page of flone react minimalist eCommerce template."
-                    />
-                </MetaTags>
-                <BreadcrumbsItem to={process.env.PUBLIC_URL + '/'}>
-                    Home
-                </BreadcrumbsItem>
+  render() {
+    let content = (
+      <div>
+        <GoogleLogin
+          clientId={config.GOOGLE_CLIENT_ID}
+          buttonText="Google Login"
+          onSuccess={this.googleResponse}
+          onFailure={this.googleResponse}
+          cookiePolicy={"single_host_origin"}
+        />
+      </div>
+    );
+    return (
+      <Fragment>
+        <MetaTags>
+          <title>FExchange | Login</title>
+          <meta
+            name="description"
+            content="Compare page of flone react minimalist eCommerce template."
+          />
+        </MetaTags>
+        <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>
+          Home
+        </BreadcrumbsItem>
 
                 <LayoutOne headerTop="visible">
                     {/* breadcrumb */}
