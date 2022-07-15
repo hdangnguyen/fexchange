@@ -1,15 +1,38 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import axios from 'axios';
+
+
 
 const MyAccount = ({ location }) => {
   const { pathname } = location;
+  const [account, setAccount] = useState({});
+  useEffect(() => {
 
+    //Runs only the first render
+    axios.get(`https://fbuyexchange.azurewebsites.net/api/acounts/1`)
+      .then(res => {
+        console.log(account.id)
+        setAccount(res.data);
+        console.log(account)
+      })
+      .catch(error => console.log(error));
+
+
+  }, [])
+
+  const onUpdateAccountSubmit = () => {
+    axios.put('https://fbuyexchange.azurewebsites.net/api/acounts/${account.id}', {
+      account 
+      
+    }).catch(error => console.log(error));
+  }
   return (
     <Fragment>
       <MetaTags>
@@ -50,38 +73,53 @@ const MyAccount = ({ location }) => {
                             <div className="row">
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
-                                  <label>First Name</label>
-                                  <input type="text" />
-                                </div>
-                              </div>
-                              <div className="col-lg-6 col-md-6">
-                                <div className="billing-info">
-                                  <label>Last Name</label>
-                                  <input type="text" />
+                                  <label>Full Name</label>
+                                  <input
+                                    type="text"
+                                    value={account.fullName}
+                                    onChange={(event) => setAccount({
+                                      ...account, fullName:
+                                        event.target.value
+                                    })}
+                                  />
                                 </div>
                               </div>
                               <div className="col-lg-12 col-md-12">
                                 <div className="billing-info">
                                   <label>Email Address</label>
-                                  <input type="email" />
+                                  <input type="email"
+                                    value={account.gmail}
+                                  />
                                 </div>
                               </div>
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
                                   <label>Telephone</label>
-                                  <input type="text" />
+                                  <input type="text"
+                                    value={account.phone}
+                                    onChange={(event) => setAccount({
+                                      ...account, phone:
+                                        event.target.value
+                                    })}
+                                  />
                                 </div>
                               </div>
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
-                                  <label>Fax</label>
-                                  <input type="text" />
+                                  <label>Address</label>
+                                  <input type="text"
+                                    value={account.address}
+                                    onChange={(event) => setAccount({
+                                      ...account, address:
+                                        event.target.value
+                                    })} />
                                 </div>
                               </div>
                             </div>
                             <div className="billing-back-btn">
                               <div className="billing-btn">
-                                <button type="submit">Continue</button>
+                                <button type="submit" onClick={onUpdateAccountSubmit}
+                                >Change</button>
                               </div>
                             </div>
                           </div>
