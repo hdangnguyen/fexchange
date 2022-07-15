@@ -13,10 +13,9 @@ const productApi = {
         return axiosClient.get(url);
     },
     post: (product) => {
-        const url = '/api/productposts';
+        const url = '/productposts';
         let formData = new FormData();
         Object.keys(product).map((key) => {
-            console.log(capitalizeFirstLetter(key));
             formData.append(
                 key === 'files' || key === 'id'
                     ? key

@@ -93,8 +93,8 @@ const Post = (props) => {
         goodsStatus: 1,
         description: '',
         status: '',
-        accountId: '',
-        categoryId: undefined,
+        accountId: 1,
+        categoryId: 1,
         accountName: 'Đăng', //TODO: change to user when login success
         categoryName: 'Unknown',
         numberOfExchangeDesires: 1,
@@ -130,7 +130,6 @@ const Post = (props) => {
         productApi
             .post(data)
             .then((res) => {
-                console.log(res);
                 history.push('/'); //TODO: redirect to manage page
                 addToast('Success', { appearance: 'success' });
             })
@@ -253,7 +252,6 @@ const Post = (props) => {
                                             ...data,
                                             boughtDate: date,
                                         });
-                                        console.log(date);
                                     }}
                                 ></DateInput>
                             </div>
