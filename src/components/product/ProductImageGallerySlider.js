@@ -40,13 +40,13 @@ const ProductImageGallerySlider = ({ product }) => {
   return (
     <div className="product-large-image-wrapper product-large-image-wrapper--slider">
       <Swiper {...gallerySwiperParams}>
-        {product.image &&
-          product.image.map((single, key) => {
+        {product.images &&
+          product.images.map((single, key) => {
             return (
               <div key={key}>
                 <div className="single-image">
                   <img
-                    src={process.env.PUBLIC_URL + single}
+                    src={single.image}
                     className="img-fluid"
                     alt=""
                   />

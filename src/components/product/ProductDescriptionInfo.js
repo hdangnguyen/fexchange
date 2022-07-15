@@ -7,6 +7,7 @@ import { addToCart } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 import { addToCompare } from "../../redux/actions/compareActions";
 import Rating from "./sub-components/ProductRating";
+import NumberFormat from "react-number-format";
 
 const ProductDescriptionInfo = ({
   product,
@@ -44,16 +45,8 @@ const ProductDescriptionInfo = ({
     <div className="product-details-content ml-70">
       <h2>{product.name}</h2>
       <div className="product-details-price">
-        {discountedPrice !== null ? (
-          <Fragment>
-            <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}
-            <span className="old">
-              {currency.currencySymbol + finalProductPrice}
-            </span>
-          </Fragment>
-        ) : (
-          <span>{currency.currencySymbol + finalProductPrice} </span>
-        )}
+      <span>{currency.currencySymbol}<NumberFormat value={product.price} displayType={'text'} thousandSeparator={true} suffix={' đ'} />
+              </span>
       </div>
       {product.rating && product.rating > 0 ? (
         <div className="pro-details-rating-wrap">
@@ -65,7 +58,7 @@ const ProductDescriptionInfo = ({
         ""
       )}
       <div className="pro-details-list">
-        <p>{product.shortDescription}</p>
+        <p>{product.description}</p>
       </div>
 
       {product.variation ? (
@@ -137,7 +130,7 @@ const ProductDescriptionInfo = ({
       ) : (
         ""
       )}
-      {product.affiliateLink ? (
+      {product.status==="Active" ? (
         <div className="pro-details-quality">
           <div className="pro-details-cart btn-hover ml-0">
             <a
@@ -151,34 +144,8 @@ const ProductDescriptionInfo = ({
         </div>
       ) : (
         <div className="pro-details-quality">
-          <div className="cart-plus-minus">
-            <button
-              onClick={() =>
-                setQuantityCount(quantityCount > 1 ? quantityCount - 1 : 1)
-              }
-              className="dec qtybutton"
-            >
-              -
-            </button>
-            <input
-              className="cart-plus-minus-box"
-              type="text"
-              value={quantityCount}
-              readOnly
-            />
-            <button
-              onClick={() =>
-                setQuantityCount(
-                  quantityCount < productStock - productCartQty
-                    ? quantityCount + 1
-                    : quantityCount
-                )
-              }
-              className="inc qtybutton"
-            >
-              +
-            </button>
-          </div>
+
+          
           <div className="pro-details-cart btn-hover">
             {productStock && productStock > 0 ? (
               <button

@@ -6,8 +6,9 @@ import ProductGridSingle from "../../components/product/ProductGridSingle";
 import { addToCart } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 import { addToCompare } from "../../redux/actions/compareActions";
-
-const ProductGrid = ({
+import { useEffect,useState } from "react";
+import axios from "axios";
+function ProductGrid({
   products,
   currency,
   addToCart,
@@ -18,10 +19,21 @@ const ProductGrid = ({
   compareItems,
   sliderClassName,
   spaceBottomClass
-}) => {
+}) {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    //Runs only the first render
+    axios.get(`https://fbuyexchange.azurewebsites.net/api/productposts/1/19?all=true`)
+      .then(res => {
+        setPosts(res.data);
+      })
+      .catch(error => console.log(error));
+
+  }, [])
   return (
     <Fragment>
-      {products.map(product => {
+      {posts.map(product => {
         return (
           <ProductGridSingle
             sliderClassName={sliderClassName}

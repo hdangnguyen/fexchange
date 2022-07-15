@@ -54,9 +54,9 @@ function ProductPostRelatedList(props) {//props:biến đưa vào là post hiệ
         <>
             <div className="container" align="center">
                 <div className="col-12" align="center"><h1>RELATED POST</h1></div>
-                <div className="d-flex align-content-xs-stretch flex-wrap justify-content-center">
+                <div className="d-flex align-content-xs-stretch flex-wrap justify-content-center ">
                     {relatedposts.filter(relatedpost => relatedpost.categoryId == props.cateID && relatedpost.id != props.id).map((filteredPost) => 
-                        <Card className="col-xs-12 col-sm-6 col-lg-3" style={{ width: '20rem' }}>
+                        <Card className=" border-0 col-xs-12 col-sm-6 col-lg-3" style={{ width: '20rem' }}>
                             <div className="position-relative">
                                 {filteredPost.images.length > 1 ? (
                                     <Card.Img onMouseOver={handleMouseOver} variant="top" width="250px" height="350px" src={filteredPost.images[0].image} />

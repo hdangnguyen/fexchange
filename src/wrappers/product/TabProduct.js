@@ -4,6 +4,7 @@ import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import SectionTitle from "../../components/section-title/SectionTitle";
 import ProductGrid from "./ProductGrid";
+import ProductPostList from "./ProductPostList";
 
 const TabProduct = ({
   spaceTopClass,
@@ -19,7 +20,7 @@ const TabProduct = ({
     >
       <div className="container">
         <SectionTitle titleText="DAILY DEALS!" positionClass="text-center" />
-        <Tab.Container defaultActiveKey="bestSeller">
+        <Tab.Container defaultActiveKey="newArrival">
           <Nav
             variant="pills"
             className="product-tab-list pt-30 pb-55 text-center"
@@ -53,12 +54,7 @@ const TabProduct = ({
             </Tab.Pane>
             <Tab.Pane eventKey="bestSeller">
               <div className="row">
-                <ProductGrid
-                  category={category}
-                  type="bestSeller"
-                  limit={8}
-                  spaceBottomClass="mb-25"
-                />
+              <ProductPostList/>
               </div>
             </Tab.Pane>
             <Tab.Pane eventKey="saleItems">

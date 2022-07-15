@@ -8,7 +8,7 @@ import ProductDescriptionInfo from "../../components/product/ProductDescriptionI
 import ProductImageGallerySideThumb from "../../components/product/ProductImageGallerySideThumb";
 import ProductImageFixed from "../../components/product/ProductImageFixed";
 
-const ProductImageDescription = ({
+function ProductImageDescription ({
   spaceTopClass,
   spaceBottomClass,
   galleryType,
@@ -17,7 +17,7 @@ const ProductImageDescription = ({
   cartItems,
   wishlistItems,
   compareItems
-}) => {
+}) {
   const wishlistItem = wishlistItems.filter(
     wishlistItem => wishlistItem.id === product.id
   )[0];
@@ -31,7 +31,7 @@ const ProductImageDescription = ({
   const finalDiscountedPrice = +(
     discountedPrice * currency.currencyRate
   ).toFixed(2);
-
+  
   return (
     <div
       className={`shop-area ${spaceTopClass ? spaceTopClass : ""} ${

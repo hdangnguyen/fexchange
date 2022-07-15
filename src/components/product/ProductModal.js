@@ -5,6 +5,8 @@ import { getProductCartQuantity } from "../../helpers/product";
 import { Modal } from "react-bootstrap";
 import Rating from "./sub-components/ProductRating";
 import { connect } from "react-redux";
+import NumberFormat from "react-number-format";
+
 
 function ProductModal(props) {
   const { product } = props;
@@ -101,13 +103,13 @@ function ProductModal(props) {
             <div className="col-md-5 col-sm-12 col-xs-12">
               <div className="product-large-image-wrapper">
                 <Swiper {...gallerySwiperParams}>
-                  {product.image &&
-                    product.image.map((single, key) => {
+                  {product.images &&
+                    product.images.map((single, key) => {
                       return (
                         <div key={key}>
                           <div className="single-image">
                             <img
-                              src={process.env.PUBLIC_URL + single}
+                              src={single.image}
                               className="img-fluid"
                               alt=""
                             />
@@ -119,13 +121,13 @@ function ProductModal(props) {
               </div>
               <div className="product-small-image-wrapper mt-15">
                 <Swiper {...thumbnailSwiperParams}>
-                  {product.image &&
-                    product.image.map((single, key) => {
+                  {product.images &&
+                    product.images.map((single, key) => {
                       return (
                         <div key={key}>
                           <div className="single-image">
                             <img
-                              src={process.env.PUBLIC_URL + single}
+                              src={single.image}
                               className="img-fluid"
                               alt=""
                             />
@@ -140,18 +142,8 @@ function ProductModal(props) {
               <div className="product-details-content quickview-content">
                 <h2>{product.name}</h2>
                 <div className="product-details-price">
-                  {discountedprice !== null ? (
-                    <Fragment>
-                      <span>
-                        {currency.currencySymbol + finaldiscountedprice}
-                      </span>{" "}
-                      <span className="old">
-                        {currency.currencySymbol + finalproductprice}
-                      </span>
-                    </Fragment>
-                  ) : (
-                    <span>{currency.currencySymbol + finalproductprice} </span>
-                  )}
+                  <span>{currency.currencySymbol}<NumberFormat value={product.price} displayType={'text'} thousandSeparator={true} suffix={' đ'} /></span>
+
                 </div>
                 {product.rating && product.rating > 0 ? (
                   <div className="pro-details-rating-wrap">
@@ -163,7 +155,7 @@ function ProductModal(props) {
                   ""
                 )}
                 <div className="pro-details-list">
-                  <p>{product.shortDescription}</p>
+                  <p>{product.description}</p>
                 </div>
 
                 {product.variation ? (
@@ -206,34 +198,34 @@ function ProductModal(props) {
                           product.variation.map(single => {
                             return single.color === selectedProductColor
                               ? single.size.map((singleSize, key) => {
-                                  return (
-                                    <label
-                                      className={`pro-details-size-content--single`}
-                                      key={key}
-                                    >
-                                      <input
-                                        type="radio"
-                                        value={singleSize.name}
-                                        checked={
-                                          singleSize.name ===
+                                return (
+                                  <label
+                                    className={`pro-details-size-content--single`}
+                                    key={key}
+                                  >
+                                    <input
+                                      type="radio"
+                                      value={singleSize.name}
+                                      checked={
+                                        singleSize.name ===
                                           selectedProductSize
-                                            ? "checked"
-                                            : ""
-                                        }
-                                        onChange={() => {
-                                          setSelectedProductSize(
-                                            singleSize.name
-                                          );
-                                          setProductStock(singleSize.stock);
-                                          setQuantityCount(1);
-                                        }}
-                                      />
-                                      <span className="size-name">
-                                        {singleSize.name}
-                                      </span>
-                                    </label>
-                                  );
-                                })
+                                          ? "checked"
+                                          : ""
+                                      }
+                                      onChange={() => {
+                                        setSelectedProductSize(
+                                          singleSize.name
+                                        );
+                                        setProductStock(singleSize.stock);
+                                        setQuantityCount(1);
+                                      }}
+                                    />
+                                    <span className="size-name">
+                                      {singleSize.name}
+                                    </span>
+                                  </label>
+                                );
+                              })
                               : "";
                           })}
                       </div>
@@ -256,7 +248,7 @@ function ProductModal(props) {
                   </div>
                 ) : (
                   <div className="pro-details-quality">
-                    <div className="cart-plus-minus">
+                    {/* <div className="cart-plus-minus">
                       <button
                         onClick={() =>
                           setQuantityCount(
@@ -285,9 +277,28 @@ function ProductModal(props) {
                       >
                         +
                       </button>
-                    </div>
+                    </div> */}
                     <div className="pro-details-cart btn-hover">
-                      {productStock && productStock > 0 ? (
+                      {/* {productStock && productStock > 0 ? (
+                        <button
+                          onClick={() =>
+                            addToCart(
+                              product,
+                              addToast,
+                              quantityCount,
+                              selectedProductColor,
+                              selectedProductSize
+                            )
+                          }
+                          disabled={productCartQty >= productStock}
+                        >
+                          {" "}
+                          Add To Cart{" "}
+                        </button>
+                      ) : (
+                        <button disabled>Out of Stock</button>
+                      )} */}
+                      {product.status && product.status ==="Active" ? (
                         <button
                           onClick={() =>
                             addToCart(

@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 
 // home pages
-const HomeFashion1 = lazy(() => import("./pages/home/HomeFashion1"));
+const HomeFashion = lazy(() => import("./pages/home/HomeFashion"));
 const HomeFashionTwo = lazy(() => import("./pages/home/HomeFashionTwo"));
 const HomeFashionThree = lazy(() => import("./pages/home/HomeFashionThree"));
 const HomeFashionFour = lazy(() => import("./pages/home/HomeFashionFour"));
@@ -62,7 +62,7 @@ const HomeBlackFridayTwo = lazy(() =>
 const HomeValentinesDay = lazy(() => import("./pages/home/HomeValentinesDay"));
 
 // shop pages
-const ShopGridStandard1 = lazy(() => import("./pages/shop/ShopGridStandard1"));
+const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
 const ShopGridFilter = lazy(() => import("./pages/shop/ShopGridFilter"));
 const ShopDetail = lazy(() => import("./pages/shop/ShopDetail"));
 const ShopGridTwoColumn = lazy(() => import("./pages/shop/ShopGridTwoColumn"));
@@ -143,13 +143,13 @@ const App = (props) => {
                 <Route
                   exact
                   path={process.env.PUBLIC_URL + "/"}
-                  component={HomeFashion1}
+                  component={HomeFashion}
                 />
 
                 {/* Homepages */}
                 <Route
                   path={process.env.PUBLIC_URL + "/home-fashion"}
-                  component={HomeFashion1}
+                  component={HomeFashion}
                 />
                 <Route
                   path={process.env.PUBLIC_URL + "/home-fashion-two"}
@@ -303,12 +303,9 @@ const App = (props) => {
                 {/* Shop pages */}
                 <Route
                   path={process.env.PUBLIC_URL + "/shop-grid-standard"}
-                  component={ShopGridStandard1}
+                  component={ShopGridStandard}
                 />
-                <Route
-                  path={process.env.PUBLIC_URL + "/shop-grid-standard/search/:keyword"}
-                  component={ShopGridStandard1}
-                />
+
 
                 
                 <Route
@@ -316,7 +313,7 @@ const App = (props) => {
                   component={ShopGridFilter}
                 />
                 <Route
-                  path={process.env.PUBLIC_URL + "/shop-detail"}
+                  path={process.env.PUBLIC_URL + "/shop-detail/:id"}
                   component={ShopDetail}
                 />
                 <Route
@@ -361,6 +358,7 @@ const App = (props) => {
                   path={process.env.PUBLIC_URL + "/product-tab-left/:id"}
                   component={ProductTabLeft}
                 />
+                {/* dan link toi detail san pham */}
                 <Route
                   path={process.env.PUBLIC_URL + "/productpost/:id"}
                   component={ProductPostDetail}/>
