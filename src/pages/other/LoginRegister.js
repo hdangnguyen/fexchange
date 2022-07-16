@@ -35,7 +35,7 @@ class Login extends Component {
       data: { tokenId: response.tokenId },
     }).then((res) => {
       console.log(res.data);
-      localStorage.setItem("token", res.data);
+      localStorage.setItem("token", JSON.stringify(res.data));
       return res.data.token;
     });
   };
