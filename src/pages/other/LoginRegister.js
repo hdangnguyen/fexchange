@@ -23,7 +23,7 @@ class Login extends Component {
       console.error("Unable to get tokenId from Google", response);
       return;
     } else {
-      console.log("This is token id1: " + response.tokenId);
+      console.log("This is token id: " + response.tokenId);
     }
 
     await Axios({
@@ -41,7 +41,8 @@ class Login extends Component {
   };
 
   render() {
-    let content = !this.props.auth.isAuthenticated ? (
+    console.log(">>check props", this.props);
+    let content = !!this.props.auth.isAuthenticated ? (
       <Redirect to="login-register" />
     ) : (
       <div>
