@@ -93,8 +93,8 @@ const Post = (props) => {
         goodsStatus: 1,
         description: '',
         status: '',
-        accountId: '',
-        categoryId: undefined,
+        accountId: 1,
+        categoryId: 1,
         accountName: 'Đăng', //TODO: change to user when login success
         categoryName: 'Unknown',
         numberOfExchangeDesires: 1,

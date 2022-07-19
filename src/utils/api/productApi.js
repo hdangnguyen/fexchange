@@ -26,7 +26,7 @@ const productApi = {
         formData.set('BoughtDate', convertToString(product.boughtDate));
         return axiosClient.post(url, formData, {
             headers: {
-                'Content-type': 'multipart/form-data',
+                'Content-Type': 'multipart/form-data',
             },
         });
     },
