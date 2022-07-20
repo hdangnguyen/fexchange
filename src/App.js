@@ -108,7 +108,7 @@ const Cart = lazy(() => import('./pages/other/Cart'));
 const Wishlist = lazy(() => import('./pages/other/Wishlist'));
 const Compare = lazy(() => import('./pages/other/Compare'));
 const Checkout = lazy(() => import('./pages/other/Checkout'));
-
+const Rating = lazy(() => import('./pages/other/Rating'));
 const NotFound = lazy(() => import('./pages/other/NotFound'));
 
 const App = (props) => {
@@ -607,7 +607,10 @@ const App = (props) => {
                                     }
                                     component={LoginRegister}
                                 />
-
+                                <Route
+                                    path={process.env.PUBLIC_URL + '/rating'}
+                                    component={Rating}
+                                />
                                 <Route
                                     path={process.env.PUBLIC_URL + '/cart'}
                                     component={Cart}
