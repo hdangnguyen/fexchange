@@ -1,6 +1,6 @@
 const authReducer = (
   state = {
-    user: "",
+    user: null,
     isAuthenticated: false,
   },
   action

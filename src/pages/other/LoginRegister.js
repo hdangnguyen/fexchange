@@ -34,8 +34,7 @@ class Login extends Component {
       },
       data: { tokenId: response.tokenId },
     }).then((res) => {
-      console.log(res.data);
-      localStorage.setItem("token", JSON.stringify(res.data));
+      this.props.login(res.data); // dispatch google response data to redux
       return res.data.token;
     });
   };
@@ -43,7 +42,7 @@ class Login extends Component {
   render() {
     console.log(">>check props", this.props);
     let content = !!this.props.auth.isAuthenticated ? (
-      <Redirect to="login-register" />
+      <Redirect to="/" />
     ) : (
       <div>
         <GoogleLogin

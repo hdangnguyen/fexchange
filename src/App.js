@@ -6,8 +6,8 @@ import { ToastProvider } from "react-toast-notifications";
 import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
-import productApi from "./utils/api/productApi";
 import { gapi } from "gapi-script";
+import Logout from "./pages/other/Logout";
 
 // home pages
 const HomeFashion = lazy(() => import("./pages/home/HomeFashion"));
@@ -112,18 +112,6 @@ const Checkout = lazy(() => import("./pages/other/Checkout"));
 const NotFound = lazy(() => import("./pages/other/NotFound"));
 
 const App = (props) => {
-  useEffect(() => {
-    const fetchProductList = async () => {
-      try {
-        const response = await productApi.get(2);
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchProductList();
-  }, []);
-
   useEffect(() => {
     props.dispatch(
       loadLanguages({
@@ -430,6 +418,10 @@ const App = (props) => {
                 <Route
                   path={process.env.PUBLIC_URL + "/login-register"}
                   component={LoginRegister}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/logout"}
+                  component={Logout}
                 />
 
                 <Route
