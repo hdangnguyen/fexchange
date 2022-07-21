@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { BreadcrumbsProvider } from 'react-breadcrumbs-dynamic';
 import productApi from './utils/api/productApi';
 import { gapi } from 'gapi-script';
+import Logout from './pages/other/Logout';
 
 // home pages
 const HomeFashion = lazy(() => import('./pages/home/HomeFashion'));
@@ -113,18 +114,6 @@ const NotFound = lazy(() => import('./pages/other/NotFound'));
 
 const App = (props) => {
     useEffect(() => {
-        const fetchProductList = async () => {
-            try {
-                const response = await productApi.get(2);
-                console.log(response);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        fetchProductList();
-    }, []);
-
-    useEffect(() => {
         props.dispatch(
             loadLanguages({
                 languages: {
@@ -155,7 +144,7 @@ const App = (props) => {
     // }, []);
 
     return (
-        <ToastProvider placement="bottom-left" autoDismiss>
+        <ToastProvider placement="bottom-left">
             <BreadcrumbsProvider>
                 <Router>
                     <ScrollToTop>
@@ -608,6 +597,10 @@ const App = (props) => {
                                     component={LoginRegister}
                                 />
                                 <Route
+                                    path={process.env.PUBLIC_URL + '/logout'}
+                                    component={Logout}
+                                />
+                                <Route
                                     path={process.env.PUBLIC_URL + '/rating'}
                                     component={Rating}
                                 />
@@ -620,12 +613,12 @@ const App = (props) => {
                                     component={Wishlist}
                                 />
                                 <Route
-                                    path={process.env.PUBLIC_URL + '/post'}
-                                    component={Post}
-                                />
-                                <Route
                                     path={process.env.PUBLIC_URL + '/compare'}
                                     component={Compare}
+                                />
+                                <Route
+                                    path={process.env.PUBLIC_URL + '/post'}
+                                    component={Post}
                                 />
                                 <Route
                                     path={process.env.PUBLIC_URL + '/checkout'}

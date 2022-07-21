@@ -11,7 +11,6 @@ import Nav from 'react-bootstrap/Nav';
 import LayoutOne from '../../layouts/LayoutOne';
 import Breadcrumb from '../../wrappers/breadcrumb/Breadcrumb';
 import Axios from 'axios';
-import { UserIsValid } from '../../services/authService';
 
 class Login extends Component {
     onFailure = (error) => {
@@ -24,35 +23,27 @@ class Login extends Component {
             console.error('Unable to get tokenId from Google', response);
             return;
         } else {
-            console.log('This is token id1: ' + response.tokenId);
+            console.log('This is token id: ' + response.tokenId);
         }
 
-        // UserIsValid(response.tokenId);
-        // const tokenBlob = new Blob(
-        //   [JSON.stringify({ tokenId: "" + response.tokenId })],
-        //   { type: "application/json" }
-        // );
-        // Axios.post(config.GOOGLE_AUTH_CALLBACK_URL, options).then(
-        //     (response) => {
-        //         response.json().then((user) => {
-        //             const token = user.token;
-        //             console.log(token);
-        //             this.props.login(token);
-        //         });
-        //     }
-        // );
-
-        // Axios.post(config.GOOGLE_AUTH_CALLBACK_URL, options).then((response) => {
-        //   this.props.login(response.data.token);
-        // });
-
-        const token = await UserIsValid(response.tokenId);
-        // Handle token from server here
-        console.log(token);
+        await Axios({
+            method: 'POST',
+            url: process.env.REACT_APP_API_URL + '/login/google',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: { tokenId: response.tokenId },
+        }).then((res) => {
+            this.props.login(res.data); // dispatch google response data to redux
+            return res.data.token;
+        });
     };
 
     render() {
-        let content = (
+        console.log('>>check props', this.props);
+        let content = !!this.props.auth.isAuthenticated ? (
+            <Redirect to="/" />
+        ) : (
             <div>
                 <GoogleLogin
                     clientId={config.GOOGLE_CLIENT_ID}

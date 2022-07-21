@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import MenuCart from "./sub-components/MenuCart";
 import { deleteFromCart } from "../../redux/actions/cartActions";
 
@@ -14,6 +14,10 @@ const IconGroup = ({
   deleteFromCart,
   iconWhiteClass,
 }) => {
+  const defaultImg =
+    "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg";
+  const userData = useSelector((state) => state.authData);
+  // console.log(userData);
   const handleClick = (e) => {
     e.currentTarget.nextSibling.classList.toggle("active");
   };
@@ -48,7 +52,8 @@ const IconGroup = ({
           onClick={(e) => handleClick(e)}
         >
           <img
-            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp"
+            src={userData.isAuthenticated ? userData.user.avatar : defaultImg}
+            referrerpolicy="no-referrer"
             class="rounded-circle"
             height="25"
             width="25"
@@ -56,7 +61,21 @@ const IconGroup = ({
             loading="lazy"
           />
         </button>
-        <div className="account-dropdown"></div>
+        <div className="account-dropdown">
+          <ul>
+            {(userData.isAuthenticated === true && (
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/logout"}>Logout</Link>
+              </li>
+            )) || (
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/login-register"}>
+                  Login
+                </Link>
+              </li>
+            )}
+          </ul>
+        </div>
       </div>
       <div className="same-style header-compare">
         <Link to={process.env.PUBLIC_URL + "/compare"}>
