@@ -13,15 +13,20 @@ import ShopProducts from '../../wrappers/product/ShopProducts';
 import axios from "axios";
 function ShopGridStandard({ location, products }) {
     const [layout, setLayout] = useState('grid three-column');
+
     const [sortType, setSortType] = useState('');
     const [sortValue, setSortValue] = useState('');
+
+    const [searchType, setSearchType]=useState('')
+    const [searchValue, setSearchValue]=useState('');
     const [filterSortType, setFilterSortType] = useState('');
     const [filterSortValue, setFilterSortValue] = useState('');
+
     const [offset, setOffset] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [currentData, setCurrentData] = useState([]);
+    
     const [sortedProducts, setSortedProducts] = useState([]);
-
     const pageLimit = 15;
     const { pathname } = location;
     const [posts, setPosts] = useState([]);
@@ -30,29 +35,42 @@ function ShopGridStandard({ location, products }) {
     const getLayout = (layout) => {
         setLayout(layout)
     }
-
+    //hàm đưa vào tên loại muốn sort: vd : category
+    //sortValue: giá trị muốn sort : vd sortType: category, sortValue: category1
+    const getSearchParams = (searchType, searchValue) => {
+        setSearchType(searchType)
+        setSearchValue(searchValue)
+    }
     const getSortParams = (sortType, sortValue) => {
         setSortType(sortType);
         setSortValue(sortValue);
     }
-
+    
+    //lấy sản phẩm dựa trên giá trị đã filter
     const getFilterSortParams = (sortType, sortValue) => {
         setFilterSortType(sortType);
         setFilterSortValue(sortValue);
     }
 
     useEffect(() => {
-        let sortedProducts = getSortedProducts(products, sortType, sortValue);
+        //làm sao để hàm getSortedProducts trả về sortedProducts đúng theo database
+        // let sortedProducts = getSortedProducts(posts, sortType, sortValue);
+        let searchedProducts = getSortedProducts(posts,searchType,searchValue);
+        let sortedProducts = getSortedProducts(searchedProducts, sortType, sortValue);
+        //flow: sẽ lấy post ứng với search và checkboxes -> sortedProducts
+        //sau đây lấy sortedProducts filter theo giá 
         const filterSortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
+        
         sortedProducts = filterSortedProducts;
         setSortedProducts(sortedProducts);
         setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
         axios.get(`https://fbuyexchange.azurewebsites.net/api/productposts/1/19?all=true`)
             .then(res => {
                 setPosts(res.data);
+                console.log(posts.filter(p=>p.categoryId==1))
             })
             .catch(error => console.log(error));
-    }, [offset, products, sortType, sortValue, filterSortType, filterSortValue]);
+    }, [offset, posts, sortType, sortValue, filterSortType, filterSortValue]);
 
     return (
         <Fragment>
@@ -73,15 +91,16 @@ function ShopGridStandard({ location, products }) {
                         <div className="row">
                             <div className="col-lg-3 order-2 order-lg-1">
                                 {/* shop sidebar */}
-                                <ShopSidebar products={posts} getSortParams={getSortParams} sideSpaceClass="mr-30" />
+                                <ShopSidebar products={posts} getSearchParams={getSearchParams} getSortParams={getSortParams}  sideSpaceClass="mr-30" />
                             </div>
                             <div className="col-lg-9 order-1 order-lg-2">
                                 {/* shop topbar default */}
-                                <ShopTopbar getLayout={getLayout} getFilterSortParams={getFilterSortParams} productCount={posts.length} sortedProductCount={currentData.length} />
+                                <ShopTopbar getLayout={getLayout} getFilterSortParams={getFilterSortParams} productCount={sortedProducts.length} sortedProductCount={currentData.length} />
 
                                 {/* shop page content default */}
                                 {/* <ShopProducts layout={layout} products={currentData} /> */}
-                                <ShopProducts layout={layout} products={posts} />
+                                <ShopProducts layout={layout} products={currentData}   />
+
 
                                 {/* shop product pagination */}
                                 <div className="pro-pagination-style text-center mt-30">

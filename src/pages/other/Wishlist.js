@@ -88,14 +88,21 @@ const Wishlist = ({
                                       wishlistItem.id
                                     }
                                   >
-                                    <img
+                                    {wishlistItem.images==null?(
+                                      <img width="50px" height="20px" alt="default" src="../../../public/assets/img/icon-img/13.png"/>
+                                    ):(
+                                      <img width="100px" height="130px" alt="" src={wishlistItem.images[0].image}/>
+                                      
+                                    )}
+                                    {/* <img
                                       className="img-fluid"
                                       src={
                                         process.env.PUBLIC_URL +
                                         wishlistItem.image[0]
                                       }
+
                                       alt=""
-                                    />
+                                    /> */}
                                   </Link>
                                 </td>
 
@@ -132,7 +139,7 @@ const Wishlist = ({
                                 </td>
 
                                 <td className="product-wishlist-cart">
-                                  {wishlistItem.affiliateLink ? (
+                                  {wishlistItem.status==="Active"? (
                                     <a
                                       href={wishlistItem.affiliateLink}
                                       rel="noopener noreferrer"

@@ -20,8 +20,10 @@ const ProductGrid = ({
 }) => {
   return (
     <Fragment>
+      {/* filter ngay day */}
       {products.map(product => {
         return (
+          
           <ProductGridListSingle
             sliderClassName={sliderClassName}
             spaceBottomClass={spaceBottomClass}

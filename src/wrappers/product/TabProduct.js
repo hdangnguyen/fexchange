@@ -54,7 +54,12 @@ const TabProduct = ({
             </Tab.Pane>
             <Tab.Pane eventKey="bestSeller">
               <div className="row">
-              <ProductPostList/>
+              <ProductGrid
+                  category={category}
+                  type="new"
+                  limit={8}
+                  spaceBottomClass="mb-25"
+                />
               </div>
             </Tab.Pane>
             <Tab.Pane eventKey="saleItems">

@@ -60,11 +60,18 @@ export const getProductCartQuantity = (cartItems, product, color, size) => {
 //get products based on category
 export const getSortedProducts = (products, sortType, sortValue) => {
   if (products && sortType && sortValue) {
+    //sort theo cate
     if (sortType === "category") {
       return products.filter(
-        product => product.category.filter(single => single === sortValue)[0]
+        product => product.categoryName===sortValue
       );
     }
+    if (sortType === "search") {
+      return products.filter(
+        product => product.name.toLowerCase().includes(sortValue.toLowerCase())
+      );
+    }
+    //sort theo tag
     if (sortType === "tag") {
       return products.filter(
         product => product.tag.filter(single => single === sortValue)[0]
@@ -86,6 +93,7 @@ export const getSortedProducts = (products, sortType, sortValue) => {
           )[0]
       );
     }
+
     if (sortType === "filterSort") {
       let sortProducts = [...products];
       if (sortValue === "default") {

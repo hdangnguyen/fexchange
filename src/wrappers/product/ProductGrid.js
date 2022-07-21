@@ -21,19 +21,21 @@ function ProductGrid({
   spaceBottomClass
 }) {
   const [posts, setPosts] = useState([]);
-
+  const [count, setCount] =  useState(0);
   useEffect(() => {
     //Runs only the first render
     axios.get(`https://fbuyexchange.azurewebsites.net/api/productposts/1/19?all=true`)
       .then(res => {
         setPosts(res.data);
+        console.log(res.data);
       })
       .catch(error => console.log(error));
-
+      
   }, [])
   return (
     <Fragment>
-      {posts.map(product => {
+      {posts && posts.sort((a,b)=>Number(a.boughtDate)-Number(b.boughtDate)).slice(0,4).map(product => {
+        
         return (
           <ProductGridSingle
             sliderClassName={sliderClassName}

@@ -204,6 +204,7 @@ const ProductGridSingle = ({
             <div className="product-price">
               <span>{currency.currencySymbol}<NumberFormat value={product.price} displayType={'text'} thousandSeparator={true} suffix={' đ'} />
               </span>
+              
 
             </div>
           </div>

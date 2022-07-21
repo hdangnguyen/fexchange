@@ -27,7 +27,7 @@ const ShopCategories = ({ categories, getSortParams }) => {
                   <div className="sidebar-widget-list-left">
                     <button
                       onClick={e => {
-                        getSortParams("category", category);
+                        getSortParams("category", category);// chinh la categoryName
                         setActiveSort(e);
                       }}
                     >
