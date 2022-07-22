@@ -53,7 +53,7 @@ const IconGroup = ({
         >
           <img
             src={userData.isAuthenticated ? userData.user.avatar : defaultImg}
-            referrerpolicy="no-referrer"
+            referrerPolicy="no-referrer"
             class="rounded-circle"
             height="25"
             width="25"
@@ -64,9 +64,16 @@ const IconGroup = ({
         <div className="account-dropdown">
           <ul>
             {(userData.isAuthenticated === true && (
-              <li>
-                <Link to={process.env.PUBLIC_URL + "/logout"}>Logout</Link>
-              </li>
+              <>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/my-account"}>
+                    My Account
+                  </Link>
+                </li>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/logout"}>Logout</Link>
+                </li>
+              </>
             )) || (
               <li>
                 <Link to={process.env.PUBLIC_URL + "/login-register"}>
