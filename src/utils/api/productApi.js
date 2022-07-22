@@ -30,7 +30,6 @@ const productApi = {
             },
         });
     },
-    rating: (id) => {}, //TODO: call rating api
 };
 
 export default productApi;

@@ -9,12 +9,12 @@ import { useState } from 'react';
 import Divider from './Divider/index';
 import { useHistory } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
+import orderApi from './../../utils/api/orderApi';
 
 const Rating = (props) => {
-    //TODO: import id product from props
-    //TODO:import { useHistory } from 'react-router-dom';
+    //TODO: import order id from props
 
-    const { pathname } = props;
+    const { pathname, orderId = 5 } = props;
     const [star, setStar] = new useState(0);
     const [ratingDescription, setRatingDescription] = new useState('');
     const history = useHistory();
@@ -23,9 +23,16 @@ const Rating = (props) => {
         console.log(name);
         setStar(newRating);
     };
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-        toast.addToast('Success', { appearance: 'success' });
+        await orderApi
+            .rating(orderId, ratingDescription, star)
+            .then((res) => {
+                toast.addToast('Success', { appearance: 'success' });
+            })
+            .catch((err) => {
+                toast.addToast('SomeThing went wrong', { appearance: 'error' });
+            });
         history.push('/');
     };
     return (
