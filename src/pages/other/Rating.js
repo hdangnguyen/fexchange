@@ -12,9 +12,8 @@ import { useToasts } from 'react-toast-notifications';
 import orderApi from './../../utils/api/orderApi';
 
 const Rating = (props) => {
-    //TODO: import order id from props
-
-    const { pathname, orderId = 5 } = props;
+    //TODO: import order id as orderId attribute when using this component
+    const { pathname, orderId = 5 } = props; // TODO: may be you need to delete the default value of orderID in the destructure
     const [star, setStar] = new useState(0);
     const [ratingDescription, setRatingDescription] = new useState('');
     const history = useHistory();
