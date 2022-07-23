@@ -64,12 +64,15 @@ function ShopGridStandard({ location, products }) {
         sortedProducts = filterSortedProducts;
         setSortedProducts(sortedProducts);
         setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
+
+        
         axios.get(`https://fbuyexchange.azurewebsites.net/api/productposts/1/19?all=true`)
             .then(res => {
                 setPosts(res.data);
                 console.log(posts.filter(p=>p.categoryId==1))
             })
             .catch(error => console.log(error));
+
     }, [offset, posts, sortType, sortValue, filterSortType, filterSortValue]);
 
     return (

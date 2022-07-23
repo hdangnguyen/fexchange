@@ -8,7 +8,8 @@ import { addToWishlist } from "../../redux/actions/wishlistActions";
 import { addToCompare } from "../../redux/actions/compareActions";
 import Rating from "./sub-components/ProductRating";
 import NumberFormat from "react-number-format";
-
+import { useEffect } from "react";
+import axios from "axios"
 const ProductDescriptionInfo = ({
   product,
   discountedPrice,
@@ -21,8 +22,11 @@ const ProductDescriptionInfo = ({
   addToast,
   addToCart,
   addToWishlist,
-  addToCompare
+  addToCompare,
+  accountId//tu them vao
 }) => {
+  const [account,setAccount]=useState({});
+ 
   const [selectedProductColor, setSelectedProductColor] = useState(
     product.variation ? product.variation[0].color : ""
   );
@@ -40,7 +44,7 @@ const ProductDescriptionInfo = ({
     selectedProductColor,
     selectedProductSize
   );
-
+  
   return (
     <div className="product-details-content ml-70">
       <h2>{product.name}</h2>
@@ -57,8 +61,11 @@ const ProductDescriptionInfo = ({
       ) : (
         ""
       )}
+      {/* shop profile short */}
       <div className="pro-details-list">
-        <p>{product.description}</p>
+        <Link to={process.env.PUBLIC_URL + "/shop-profile/" + product.accountId}>
+                {product.accountName}
+              </Link>
       </div>
 
       {product.variation ? (

@@ -18,17 +18,18 @@ function ProductPostDetail ({ location, product }) {
     
     const [postID,setpostID]= useState(useParams().id);
     const [cateID,setCateID]= useState(0);
-    const[post,setPost]=useState({})
+    const[post,setPost]=useState({});
     useEffect(() => {
         //Runs only the first render
         axios.get('https://fbuyexchange.azurewebsites.net/api/productposts/' + postID)
             .then(res => {
                 setPost(res.data);
-                setCateID(res.data.categoryId)
-
             })
             .catch(error => console.log(error));
         //set links from post
+
+
+
 
     })
     return (

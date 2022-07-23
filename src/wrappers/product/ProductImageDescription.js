@@ -68,6 +68,8 @@ function ProductImageDescription ({
               compareItem={compareItem}
               addToast={addToast}
             />
+          {/* saler info */}
+          
           </div>
         </div>
       </div>

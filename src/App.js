@@ -63,6 +63,7 @@ const HomeValentinesDay = lazy(() => import("./pages/home/HomeValentinesDay"));
 
 // shop pages
 const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
+
 const ShopGridFilter = lazy(() => import("./pages/shop/ShopGridFilter"));
 const ShopDetail = lazy(() => import("./pages/shop/ShopDetail"));
 const ShopGridTwoColumn = lazy(() => import("./pages/shop/ShopGridTwoColumn"));
@@ -77,6 +78,8 @@ const ShopListTwoColumn = lazy(() => import("./pages/shop/ShopListTwoColumn"));
 
 // product pages
 const Product = lazy(() => import("./pages/shop-product/Product"));
+const ShopProfile = lazy(() => import("./pages/shop-product/ShopProfile"));
+
 const ProductPostDetail = lazy(() => import("./pages/shop-product/ProductPostDetail"));
 const ProductTabLeft = lazy(() =>
   import("./pages/shop-product/ProductTabLeft")
@@ -305,6 +308,12 @@ const App = (props) => {
                   path={process.env.PUBLIC_URL + "/shop-grid-standard"}
                   component={ShopGridStandard}
                 />
+                <Route
+                  path={process.env.PUBLIC_URL + "/shop-profile/:id"}
+                  render={(routeProps) => (
+                    <ShopProfile {...routeProps} key={routeProps.match.params.id} />
+                  )}
+                />
 
 
                 
@@ -352,6 +361,7 @@ const App = (props) => {
                     <Product {...routeProps} key={routeProps.match.params.id} />
                   )}
                 />
+                
                 {/* dẫn link tới đường dẫn sản phẩm có chưa name trên thanh địa chỉ */}
               
                 <Route

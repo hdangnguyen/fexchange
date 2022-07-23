@@ -266,7 +266,7 @@ const ProductGridListSingle = ({
 
                 <div className="shop-list-actions d-flex align-items-center">
                   <div className="shop-list-btn btn-hover">
-                    {product.affiliateLink ? (
+                    {product.status==="Active" ? (
                       <a
                         href={product.affiliateLink}
                         rel="noopener noreferrer"
