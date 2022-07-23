@@ -3,9 +3,11 @@
   "version": "1.5.0",
   "private": true,
   "dependencies": {
+    "add": "^2.0.6",
     "animate.css": "^3.7.2",
     "axios": "^0.19.0",
     "bootstrap": "4.5.0",
+    "browser-image-compression": "^2.0.0",
     "firebase": "^9.8.4",
     "gapi-script": "^1.2.0",
     "google-maps-react": "^2.0.2",
@@ -43,7 +45,8 @@
     "redux-multilanguage": "^0.1.2",
     "redux-thunk": "^2.3.0",
     "swiper": "^5.2.0",
-    "uuid": "^3.3.3"
+    "uuid": "^3.3.3",
+    "yarn": "^1.22.19"
   },
   "scripts": {
     "start": "react-scripts start",
