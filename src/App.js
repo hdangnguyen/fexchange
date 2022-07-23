@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 import { gapi } from "gapi-script";
 import Logout from "./pages/other/Logout";
+import Admin from "./pages/admin";
 
 // home pages
 const HomeFashion = lazy(() => import("./pages/home/HomeFashion"));
@@ -439,6 +440,10 @@ const App = (props) => {
                 <Route
                   path={process.env.PUBLIC_URL + "/checkout"}
                   component={Checkout}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/admin"}
+                  component={Admin}
                 />
 
                 <Route
