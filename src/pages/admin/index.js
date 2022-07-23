@@ -60,7 +60,9 @@ const Admin = ({ location, products }) => {
       <LayoutOne>
         <div className="shop-area pt-95 pb-100">
           <div className="container-fluid">
-            <div className="row"></div>
+            <div className="row">
+              
+            </div>
           </div>
         </div>
       </LayoutOne>
