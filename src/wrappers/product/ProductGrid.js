@@ -18,7 +18,9 @@ const ProductGrid = ({
   wishlistItems,
   compareItems,
   sliderClassName,
-  spaceBottomClass
+  spaceBottomClass,
+  currentId
+  
 }) => {
   const [posts, setPosts] = useState([]);
   const [count, setCount] =  useState(0);
@@ -30,7 +32,6 @@ const ProductGrid = ({
         console.log(res.data);
       })
       .catch(error => console.log(error));
-      
   }, [])
   return (
     <Fragment>
