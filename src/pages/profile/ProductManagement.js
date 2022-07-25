@@ -115,7 +115,7 @@ const ProductManagement = ({ location }) => {
   const { pathname } = location;
   const [products, setProducts] = useState([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
-  const tempId = useSelector((state) => state.authData.user.id);
+  const tempId = useSelector((state) => state.authData.user?.id);
   const [accountId] = useState(tempId);
 
   useEffect(() => {
