@@ -3,9 +3,11 @@
   "version": "1.5.0",
   "private": true,
   "dependencies": {
+    "add": "^2.0.6",
     "animate.css": "^3.7.2",
     "axios": "^0.19.0",
     "bootstrap": "4.5.0",
+    "browser-image-compression": "^2.0.0",
     "firebase": "^9.8.4",
     "gapi-script": "^1.2.0",
     "google-maps-react": "^2.0.2",
@@ -25,6 +27,8 @@
     "react-google-login": "^5.2.2",
     "react-hooks-paginator": "^0.4.0",
     "react-id-swiper": "2.4.0",
+    "react-images-upload": "^1.2.8",
+    "react-images-uploading": "^3.1.7",
     "react-lightgallery": "0.6.3",
     "react-mailchimp-subscribe": "^2.1.0",
     "react-meta-tags": "^0.7.4",
@@ -41,7 +45,8 @@
     "redux-multilanguage": "^0.1.2",
     "redux-thunk": "^2.3.0",
     "swiper": "^5.2.0",
-    "uuid": "^3.3.3"
+    "uuid": "^3.3.3",
+    "yarn": "^1.22.19"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -11,51 +11,38 @@ import Nav from "react-bootstrap/Nav";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import Axios from "axios";
-import { UserIsValid } from "../../services/authService";
 
 class Login extends Component {
   onFailure = (error) => {
     alert(error);
   };
 
-  googleResponse = (response) => {
+  googleResponse = async (response) => {
     console.log(response);
     if (!response.tokenId) {
       console.error("Unable to get tokenId from Google", response);
       return;
+    } else {
+      console.log("This is token id: " + response.tokenId);
     }
 
-    UserIsValid(response.tokenId);
-    const tokenBlob = new Blob(
-      [JSON.stringify({ tokenId: response.tokenId }, null, 2)],
-      { type: "application/json" }
-    );
-
-    const options = {
+    await Axios({
       method: "POST",
-      body: tokenBlob,
-      mode: "cors",
-      cache: "default",
-    };
-
-    Axios.post(config.GOOGLE_AUTH_CALLBACK_URL, options).then((response) => {
-      response.json().then((user) => {
-        const token = user.token;
-        console.log(token);
-        this.props.login(token);
-      });
+      url: process.env.REACT_APP_API_URL + "/login/google",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: { tokenId: response.tokenId },
+    }).then((res) => {
+      this.props.login(res.data); // dispatch google response data to redux
+      return res.data.token;
     });
   };
 
   render() {
+    console.log(">>check props", this.props);
     let content = !!this.props.auth.isAuthenticated ? (
-      <div>
-        <Redirect
-          to={{
-            pathname: "/home-fashion",
-          }}
-        />
-      </div>
+      <Redirect to="/" />
     ) : (
       <div>
         <GoogleLogin
@@ -67,7 +54,6 @@ class Login extends Component {
         />
       </div>
     );
-
     return (
       <Fragment>
         <MetaTags>
@@ -84,6 +70,7 @@ class Login extends Component {
         <LayoutOne headerTop="visible">
           {/* breadcrumb */}
           <Breadcrumb />
+
           <div className="login-register-area pt-100 pb-100">
             <div className="container">
               <div className="row">
