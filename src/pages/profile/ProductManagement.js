@@ -9,6 +9,7 @@ import Breadcrumb from '../../wrappers/breadcrumb/Breadcrumb';
 import { useReducer } from 'react';
 import Product from './Product';
 import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 const TabLink = ({ tabIndex, onClick, children, active }) => {
   return (
@@ -139,7 +140,7 @@ const ProductManagement = ({ location }) => {
     fetchPost();
   }, [products, accountId, isDataLoaded]);
 
-  return (
+  return accountId !== undefined ? (
     <Fragment>
       <MetaTags>
         <title>Flone | Product Management</title>
@@ -164,6 +165,8 @@ const ProductManagement = ({ location }) => {
         </div>
       </LayoutOne>
     </Fragment>
+  ) : (
+    <Redirect to="/login-register" />
   );
 };
 
