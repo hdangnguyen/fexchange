@@ -3,13 +3,12 @@ import React, { Fragment, useState } from 'react';
 import { useEffect } from 'react';
 import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 import { MetaTags } from 'react-meta-tags';
-import {
-  getSortedProducts,
-} from '../../helpers/product';
+import { getSortedProducts } from '../../helpers/product';
 import LayoutOne from '../../layouts/LayoutOne';
 import Breadcrumb from '../../wrappers/breadcrumb/Breadcrumb';
 import { useReducer } from 'react';
 import Product from './Product';
+import { useSelector } from 'react-redux';
 
 const TabLink = ({ tabIndex, onClick, children, active }) => {
   return (
@@ -40,7 +39,7 @@ const TabContent = ({ products }) => {
         aria-labelledby="ex3-tab-1"
       >
         {products?.map((product) => (
-          <Product product={product} />
+          <Product key={`product-${product.id}`} product={product} />
         ))}
       </div>
     </div>
@@ -114,21 +113,31 @@ const Tab = ({ products }) => {
 const ProductManagement = ({ location }) => {
   const { pathname } = location;
   const [products, setProducts] = useState([]);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const tempId = useSelector((state) => state.authData.user.id);
+  const [accountId] = useState(tempId);
 
   useEffect(() => {
     const fetchPost = async () => {
-      if (products.length === 0) {
+      if (products.length === 0 && !isDataLoaded) {
         setProducts(
           await fetch(
             'https://fbuyexchange.azurewebsites.net/api/productposts/1/20?all=true'
           )
             .then((res) => res.json())
+            .then((res) =>
+              res.filter((product) => product.accountId === accountId)
+            )
+            .then((res) => {
+              setIsDataLoaded(true);
+              return res;
+            })
             .catch((err) => console.error(err))
         );
       }
     };
     fetchPost();
-  }, [products]);
+  }, [products, accountId, isDataLoaded]);
 
   return (
     <Fragment>
