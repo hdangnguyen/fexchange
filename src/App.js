@@ -328,7 +328,10 @@ const App = (props) => {
                 <Route
                   path={process.env.PUBLIC_URL + "/shop-profile/:id"}
                   render={(routeProps) => (
-                    <ShopProfile {...routeProps} key={routeProps.match.params.id} />
+                    <ShopProfile
+                      {...routeProps}
+                      key={routeProps.match.params.id}
+                    />
                   )}
                 />
                 <Route

@@ -3,31 +3,35 @@ import React, { useEffect } from "react";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import ShopProducts from "./ShopProducts";
-import Paginator from 'react-hooks-paginator';
+import Paginator from "react-hooks-paginator";
 import { useState } from "react";
-const ProfileDescriptionTab = ({ spaceBottomClass, productFullDesc ,posts,layout,postsSold}) => {
-    const pageLimit = 6;
-    const [offset, setOffset] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [currentData, setCurrentData] = useState([]);
-    const pageLimit2 = 3;
-    const [offset2, setOffset2] = useState(0);
-    const [currentPage2, setCurrentPage2] = useState(1);
-    const [currentData2, setCurrentData2] = useState([]);
-    useEffect(()=>{
-        setCurrentData(posts.slice(offset, offset + pageLimit));
-        setCurrentData2(postsSold.slice(offset2, offset2 + pageLimit2));
-    },[offset,offset2])
+const ProfileDescriptionTab = ({
+  spaceBottomClass,
+  productFullDesc,
+  posts,
+  layout,
+  postsSold,
+}) => {
+  const pageLimit = 6;
+  const [offset, setOffset] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentData, setCurrentData] = useState([]);
+  const pageLimit2 = 3;
+  const [offset2, setOffset2] = useState(0);
+  const [currentPage2, setCurrentPage2] = useState(1);
+  const [currentData2, setCurrentData2] = useState([]);
+  useEffect(() => {
+    setCurrentData(posts.slice(offset, offset + pageLimit));
+    setCurrentData2(postsSold.slice(offset2, offset2 + pageLimit2));
+  }, [offset, offset2]);
   return (
     <div className={`description-review-area ${spaceBottomClass}`}>
       <div className="container">
         <div className="description-review-wrapper">
-          <Tab.Container defaultActiveKey="productDescription">
+          <Tab.Container defaultActiveKey="additionalInfo">
             <Nav variant="pills" className="description-review-topbar">
               <Nav.Item>
-                <Nav.Link eventKey="additionalInfo">
-                  Product Posts
-                </Nav.Link>
+                <Nav.Link eventKey="additionalInfo">Product Posts</Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link eventKey="productDescription">Sold</Nav.Link>
@@ -39,37 +43,37 @@ const ProfileDescriptionTab = ({ spaceBottomClass, productFullDesc ,posts,layout
             <Tab.Content className="description-review-bottom">
               <Tab.Pane eventKey="additionalInfo">
                 <div className="product-anotherinfo-wrapper">
-                <ShopProducts layout={layout} products={currentData} />
-                <div className="pro-pagination-style text-center mt-30">
-                                    <Paginator
-                                        totalRecords={posts.length}
-                                        pageLimit={pageLimit}
-                                        pageNeighbours={2}
-                                        setOffset={setOffset}
-                                        currentPage={currentPage}
-                                        setCurrentPage={setCurrentPage}
-                                        pageContainerClass="mb-0 mt-0"
-                                        pagePrevText="«"
-                                        pageNextText="»"
-                                    />
-                                </div>
+                  <ShopProducts layout={layout} products={currentData} />
+                  <div className="pro-pagination-style text-center mt-30">
+                    <Paginator
+                      totalRecords={posts.length}
+                      pageLimit={pageLimit}
+                      pageNeighbours={2}
+                      setOffset={setOffset}
+                      currentPage={currentPage}
+                      setCurrentPage={setCurrentPage}
+                      pageContainerClass="mb-0 mt-0"
+                      pagePrevText="«"
+                      pageNextText="»"
+                    />
+                  </div>
                 </div>
               </Tab.Pane>
               <Tab.Pane eventKey="productDescription">
-              <ShopProducts layout={layout} products={currentData2} />
-              <div className="pro-pagination-style text-center mt-30">
-                                    <Paginator
-                                        totalRecords={postsSold.length}
-                                        pageLimit={pageLimit2}
-                                        pageNeighbours={2}
-                                        setOffset={setOffset2}
-                                        currentPage={currentPage2}
-                                        setCurrentPage={setCurrentPage2}
-                                        pageContainerClass="mb-0 mt-0"
-                                        pagePrevText="«"
-                                        pageNextText="»"
-                                    />
-                                </div>
+                <ShopProducts layout={layout} products={currentData2} />
+                <div className="pro-pagination-style text-center mt-30">
+                  <Paginator
+                    totalRecords={postsSold.length}
+                    pageLimit={pageLimit2}
+                    pageNeighbours={2}
+                    setOffset={setOffset2}
+                    currentPage={currentPage2}
+                    setCurrentPage={setCurrentPage2}
+                    pageContainerClass="mb-0 mt-0"
+                    pagePrevText="«"
+                    pageNextText="»"
+                  />
+                </div>
               </Tab.Pane>
               <Tab.Pane eventKey="productReviews">
                 <div className="row">
@@ -206,7 +210,7 @@ const ProfileDescriptionTab = ({ spaceBottomClass, productFullDesc ,posts,layout
 
 ProfileDescriptionTab.propTypes = {
   productFullDesc: PropTypes.string,
-  spaceBottomClass: PropTypes.string
+  spaceBottomClass: PropTypes.string,
 };
 
 export default ProfileDescriptionTab;
